@@ -6,5 +6,5 @@ const port = 3000;
 app.use('/', serv);
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`Super web service listening at http://localhost:${port}`)
 })
