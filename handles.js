@@ -17,4 +17,8 @@ serv.get('/hello/name=:name', function (req, res) {
   }
 })
 
+serv.get('/hello', function(req, res) {
+	res.send('Error 404, name not found. Please try again with your name')
+})
+
 module.exports = serv;
