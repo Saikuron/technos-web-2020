@@ -1,26 +1,23 @@
-# ECE Web technologies course - 2020
 
-Git repository about our web technologies class at ECE Paris.
+# ECE WebTech Chat
 
-## Installation
-
-```bash
-git clone https://github.com/Saikuron/TechnosWeb_de-Malliard_Rietsch_2020.git
-npm install
-```
+This is a chat application we wrote to learn the basics and the not so basics features of backend and frontend web programing. It leverages Node.js and React as well as complementary technologies such as unit testing with Mocha and Should.js, embeded storage with LevelDB, REST APIs, ... If we have time, we'll also play with GraphQL and Socket.io
 
 ## Usage
 
+Start the web application:
+
 ```bash
-npm start
+./bin/start 
+Chat is waiting for you at http://localhost:3000
 ```
 
-## Authors
+Run the tests with mocha:
 
-Jean de Malliard <br/>
-jean.de-malliard@edu.ece.fr <br/>
-Student at [ECE Paris](https://ece.fr/)
+```bash
+npm run test
+```
 
-Lucas Rietsch <br/>
-lucas.rietsch@edu.ece.fr <br/>
-Student at [ECE Paris](https://ece.fr/)
+## Instructions
+
+See "../lab.md" for the lab instructions.
