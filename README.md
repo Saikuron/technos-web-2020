@@ -31,8 +31,8 @@ npm run test
 
 Jean de Malliard <br>
 jean.de-malliard@edu.ece.fr<br>
-Student at [ECE Paris](www.ece.fr)
+Student at [ECE Paris](https://www.ece.fr)
 
 Lucas Rietsch <br>
 lucas.rietsch@edu.ece.fr <br>
-Student at [ECE Paris](www.ece.fr)
+Student at [ECE Paris](https://www.ece.fr)
