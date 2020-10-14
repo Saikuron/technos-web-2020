@@ -8,8 +8,15 @@ This is a chat application we wrote to learn the basics and the not so basics fe
 Clone the project and install the dependencies with the following commands in your terminal
 
 ```bash
-git clone https://github.com/Saikuron/TechnosWeb_de-Malliard_Rietsch_2020.git
-cd TechnosWeb_de-Malliard_Rietsch_2020
+git clone https://github.com/Saikuron/technos-web-2020.git
+cd technos-web-2020
+npm install
+```
+
+To use the frontend you'll need to go in the frontend folder
+
+```bash
+cd frontend
 npm install
 ```
 
@@ -18,7 +25,7 @@ npm install
 Start the web application:
 
 ```bash
-./bin/start 
+node ./bin/start
 Chat is waiting for you at http://localhost:3000
 ```
 
@@ -27,6 +34,14 @@ Run the tests with mocha:
 ```bash
 npm run test
 ```
+
+Use the frontend part like this
+
+```bash
+cd frontend
+npm run start
+```
+
 ## Authors
 
 Jean de Malliard <br>
