@@ -1,45 +1,25 @@
 
 # ECE WebTech Chat
 
-This is a chat application we wrote to learn the basics and the not so basics features of backend and frontend web programing. It leverages Node.js and React as well as complementary technologies such as unit testing with Mocha and Should.js, embeded storage with LevelDB, REST APIs, ... If we have time, we'll also play with GraphQL and Socket.io
+This is a simple chat application. It is composed of different micro projects.
 
 ## Installation
 
-Clone the project and install the dependencies with the following commands in your terminal
+Clone the project and go into it with the following command in your terminal
 
 ```bash
 git clone https://github.com/Saikuron/technos-web-2020.git
-cd technos-web-2020
-npm install
+cd technos-web-2020/
 ```
 
-To use the frontend you'll need to go in the frontend folder
+Go in the front-end folder to use the front-end part, or in the back-end folder to use the back-end part
 
 ```bash
-cd frontend
-npm install
+cd front-end/
 ```
-
-## Usage
-
-Start the web application:
-
+Or
 ```bash
-node ./bin/start
-Chat is waiting for you at http://localhost:3000
-```
-
-Run the tests with mocha:
-
-```bash
-npm run test
-```
-
-Use the frontend part like this
-
-```bash
-cd frontend
-npm run start
+cd back-end/
 ```
 
 ## Authors
