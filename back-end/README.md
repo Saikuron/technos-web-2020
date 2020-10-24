@@ -2,16 +2,16 @@
 
 Back-end part where we store messages, users and channels.
 
-## Installation
+### Installation
 
 To use the back-end you'll need to go in the back-end folder and install the dependencies
 
 ```bash
-cd front-end/
+cd back-end/
 npm install
 ```
 
-## Usage
+### Usage
 
 Start the web application:
 

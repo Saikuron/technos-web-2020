@@ -2,7 +2,7 @@
 
 This is a simple tic tac toe
 
-## Installation
+### Installation
 
 To use the front-end you'll need to go in the front-end folder and install the dependencies
 
@@ -11,7 +11,7 @@ cd front-end/
 npm install
 ```
 
-## Usage
+### Usage
 
 Use the front-end part like this when you're in the front-end directory
 
