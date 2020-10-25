@@ -2,187 +2,235 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-// class Square extends React.Component {
-//   render() {
-//     return (
-//       <button
-//         className="square"
-//         onClick = { () => this.props.onClick() }
-//       >
-//         { this.props.value }
-//       </button>
+class WriteMessageForm extends React.Component
+{
+  constructor( props )
+  {
+    super( props );
+    this.handleChange = this.handleChange.bind( this );
+    this.handleSubmit = this.handleSubmit.bind( this );
+  }
+
+  handleChange( event )
+  {
+    this.props.onMessageChange( event.target.value );
+  }
+
+  handleSubmit( event )
+  {
+    this.props.onMessageSubmit( this.props.value );
+    event.preventDefault();
+  }
+
+  render()
+  {
+    const message = this.props.value;
+
+    return(
+      <form onSubmit = { this.handleSubmit }>
+        <input type="text" placeholder="Write your message"
+          value={ message }
+          onChange={ this.handleChange }
+        />
+        <button type="submit">
+          Send
+        </button>
+      </form>
+    );
+  }
+}
+
+class Messages extends React.Component
+{
+  render()
+  {
+    const allMessages =  this.props.messagesList;
+    const messagesClean = allMessages.map( (message) => {
+        return(
+          <li key={ message.creation }>
+            { message.content }
+          </li>
+        );
+    });
+
+    return(
+      <ul>
+        { messagesClean }
+      </ul>
+    );
+  }
+}
+
+function Channels( props )
+{
+  const allChannels = props.channelsList;
+  const channelsClean = Object.keys(allChannels).map( (channel) => {
+    return(
+      <li key={ channel }>
+        <button onClick={ () => props.onChannelClick(channel) }> {channel} </button>
+      </li>
+    );
+  });
+
+  return(
+    <ul>
+      { channelsClean }
+    </ul>
+  );
+}
+
+// class Channels extends React.Component
+// {
+//   render()
+//   {
+//     const allChannels = this.props.channelsList;
+//     const channelsClean = Object.keys(allChannels).map( (channel) => {
+//       return(
+//         <li key={ channel }>
+//           <button onClick={ () => this.props.onChannelClick(channel) }> {channel} </button>
+//         </li>
+//       );
+//     });
+//
+//     return(
+//       <ul>
+//         { channelsClean }
+//       </ul>
 //     );
 //   }
 // }
 
-function Square( props ) {
-  return (
-    <button
-      className="square"
-      onClick = { props.onClick }
-    >
-      { props.value }
-    </button>
-  );
-}
+class Chat extends React.Component
+{
+  constructor( props )
+  {
+    super( props );
+    this.handleMessageChange = this.handleMessageChange.bind( this );
+    this.handleMessageSubmit = this.handleMessageSubmit.bind( this );
+    this.state = {
+      // channels: ['general', 'fun', 'work'],
+      channels: {
+        general: {
+          // name: '',
+          messages: [ {
+            creation: '1',
+            content: 'general test',
+          }, {
+            creation: '2',
+            content: 'Second general message',
+          }],
+        },
+        fun: {
+          // name: '',
+          messages: [ {
+            creation: '',
+            content: 'fun test',
+          } ],
+        },
+        work: {
+          // name: '',
+          messages: [ {
+            creation: '',
+            content: 'work test',
+          } ],
+        },
+      },
+      // messages : [],
+      currentMessage: '',
+      currentChannel: 'general',
+    };
+  }
 
-class Board extends React.Component {
-  renderSquare( i ) {
+  render()
+  {
+    const currentMessage = this.state.currentMessage;
+    const currentChannel = this.state.currentChannel;
+    // const messagesList = this.state.messages;
+    // const channelsList = this.state.channels;
+    const messagesList = this.state.channels[currentChannel].messages;
+    const channelsList = this.state.channels;
+
     return(
-      <Square
-        value = { this.props.squares[ i ] }
-        onClick = { () => this.props.onClick( i ) }
-      />
-    );
-  }
-
-  // handleClick( i ) {
-  //   const squares = this.state.squares.slice();
-  //   if( calculateWinner( squares ) || squares[i] ) {
-  //     return;
-  //   }
-  //   squares[ i ] = this.state.xIsNext ? 'X' :'O';
-  //   // squares[ i ] = 'X';
-  //   this.setState( {
-  //     squares: squares,
-  //     xIsNext: !this.state.xIsNext,
-  //   } );
-  // }
-
-  render() {
-    // const status = 'Next player: ' + ( this.state.xIsNext ? 'X' : 'O' );
-    // const winner = calculateWinner( this.state.squares );
-    // let status;
-    // if( winner ){
-    //   status = 'Winner : ' + winner;
-    // }
-    // else {
-    //   status = 'Next player ' + ( this.state.xIsNext ? 'X' : 'O' );
-    // }
-
-    return (
-      <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
+      <div className="chat">
+        <div className="channels-list">
+            <Channels
+              channelsList={ channelsList }
+              onChannelClick={ (channel) => this.handleChannelClick(channel) }
+            />
         </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
+        <div className="messages-list">
+            <Messages
+              messagesList={ messagesList }
+            />
         </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
-      </div>
-    );
-  }
-}
-
-class Game extends React.Component {
-  constructor( props ) {
-      super( props );
-      this.state = {
-        history: [{
-          squares: Array(9).fill(null),
-        }],
-        xIsNext: true,
-        stepNumber: 0,
-      }
-  }
-
-  handleClick( i ) {
-    const history = this.state.history.slice( 0, this.state.stepNumber + 1 );
-    const current = history[ history.length - 1 ];
-    const squares = current.squares.slice();
-
-    if( calculateWinner( squares ) || squares[i] ) {
-      return;
-    }
-    squares[ i ] = this.state.xIsNext ? 'X' :'O';
-    this.setState( {
-      history: history.concat([{
-        squares: squares,
-      }]),
-      xIsNext: !this.state.xIsNext,
-      stepNumber: history.length,
-    } );
-  }
-
-  jumpTo( step ) {
-    this.setState({
-      stepNumber: step,
-      xIsNext: ( step % 2 ) === 0,
-    });
-  }
-
-  render() {
-    const history = this.state.history;
-    const current = history[ this.state.stepNumber ];
-    const winner = calculateWinner( current.squares );
-
-    const moves = history.map( (step, move) => {
-      const desc = move ?
-      'Go to move #' + move :
-      'Go to game start';
-      return (
-        <li key={ move }>
-          <button onClick={ () => this.jumpTo(move) }> { desc } </button>
-        </li>
-      );
-    } );
-
-    let status;
-    if( winner ) {
-      status = 'Winner : ' + winner;
-    }
-    else {
-      status = 'Next player : ' + (this.state.xIsNext ? 'X' : 'O' );
-    }
-
-    return (
-      <div className="game">
-        <div className="game-board">
-          <Board
-            squares={ current.squares }
-            onClick={ ( i ) => this.handleClick( i ) }
+        <div className="write-message">
+          <WriteMessageForm
+            value={ currentMessage }
+            onMessageSubmit={ this.handleMessageSubmit }
+            onMessageChange={ this.handleMessageChange }
           />
         </div>
-        <div className="game-info">
-          <div>{ status }</div>
-          <ol>{ moves }</ol>
-        </div>
       </div>
     );
   }
+
+  handleMessageChange( message )
+  {
+    this.setState( { currentMessage: message } );
+  }
+
+  handleMessageSubmit( message )
+  {
+    if( !message )
+      return;
+
+    // const messages = this.state.messages.slice();
+    const currentChannel = this.state.currentChannel;
+    let messages = this.state.channels[currentChannel].messages.slice();
+    // let channels = Object.entries( this.state.channels ).slice();
+    let channels = { ...this.state.channels };
+    // let channels = Object.assign( {}, this.state.channels );
+
+    messages = messages.concat( [ {
+      creation: Date.now(),
+      content: message,
+    } ] );
+    channels[currentChannel].messages = messages;
+
+    this.setState( prevState => ( {
+      channels: channels,
+      // channels[currentChannel].messages: messages,
+      currentMessage: '',
+    } ) );
+
+    // this.setState( {
+    //     channels[this.state.currentChannel].messages: messages.concat( [ {
+    //     creation: '99',
+    //     content: message,
+    //    } ] ),
+    //   currentMessage: '',
+    // } );
+
+    // this.setState( {
+    //   messages: messages.concat( [ message ] ),
+    //   currentMessage: '',
+    // } );
+  }
+
+  handleChannelClick(channel)
+  {
+    let currentChannel = this.state.currentChannel;
+    currentChannel = channel;
+    this.setState( {
+      currentChannel: currentChannel,
+    } );
+  }
+
 }
 
 // ========================================
 
 ReactDOM.render(
-  <Game />,
+  <Chat />,
   document.getElementById('root')
 );
-
-function calculateWinner( squares ) {
-  const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6],
-  ];
-  for (let i = 0; i < lines.length; i++) {
-    const [a, b, c] = lines[i];
-    if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
-    }
-  }
-  return null;
-}
