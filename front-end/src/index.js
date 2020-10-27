@@ -28,7 +28,7 @@ class WriteMessageForm extends React.Component
 
     return(
       <form onSubmit = { this.handleSubmit }>
-        <input type="text" placeholder="Write your message"
+        <input className="inputMessage" type="text" placeholder="Write your message"
           value={ message }
           onChange={ this.handleChange }
         />
@@ -48,9 +48,9 @@ class Messages extends React.Component
     const allMessages =  this.props.messagesList;
     const messagesClean = allMessages.map( (message) => {
         return(
-          <li key={ message.creation }>
+          <p key={ message.creation } id="msg">
             { message.content }
-          </li>
+          </p>
         );
     });
 
@@ -68,9 +68,9 @@ function Channels( props )
   const allChannels = props.channelsList;
   const channelsClean = Object.keys(allChannels).map( (channel) => {
     return(
-      <li key={ channel }>
+      <p key={ channel }>
         <button onClick={ () => props.onChannelClick(channel) }> {channel} </button>
-      </li>
+      </p>
     );
   });
 
@@ -153,19 +153,20 @@ class Chat extends React.Component
     const channelsList = this.state.channels;
 
     return(
-      <div className="chat">
+      <div className="chat" align="left">
         <div className="channels-list">
+        <p>Channels:</p>
             <Channels
               channelsList={ channelsList }
               onChannelClick={ (channel) => this.handleChannelClick(channel) }
             />
         </div>
-        <div className="messages-list">
+        <div className="messages-list" align="center">
             <Messages
               messagesList={ messagesList }
             />
         </div>
-        <div className="write-message">
+        <div className="write-message" align="center">
           <WriteMessageForm
             value={ currentMessage }
             onMessageSubmit={ this.handleMessageSubmit }
