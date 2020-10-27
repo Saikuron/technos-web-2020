@@ -145,7 +145,7 @@ class Chat extends React.Component
               messagesList={ messagesList }
             />
         </div>
-        <div className="write-message" align="center">
+        <div className="write-message">
           <WriteMessageForm
             value={ currentMessage }
             onMessageSubmit={ this.handleMessageSubmit }

@@ -53,7 +53,7 @@ ol, ul {
 .chat {
   background-color: #222222;
   color: white;
-  height: 500px;
+  height: 600px;
 }
 
 .chat-title {
@@ -69,6 +69,7 @@ ol, ul {
   text-align: center;
   background-color: #333333;
   float: left;
+  height: 50%;
 }
 
 .channel-title {
@@ -83,7 +84,11 @@ ol, ul {
 }
 
 .messages-list {
-  /* height: 300px; */
+  height: 60%;
+  width: 60%;
+  overflow-y: auto;
+  margin-top: 3%;
+  margin-left: 30%;
 }
 
 .msg {
@@ -98,6 +103,12 @@ ol, ul {
   border-radius: 10px;
   color: white;
   border: none;
+}
+
+.write-message {
+  width: 100%;
+  position: fixed;
+  text-align: center;
 }
 
 .inputMessage{
