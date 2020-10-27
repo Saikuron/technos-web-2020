@@ -32,7 +32,7 @@ class WriteMessageForm extends React.Component
           value={ message }
           onChange={ this.handleChange }
         />
-        <button type="submit">
+        <button type="submit" className="send-button">
           Send
         </button>
       </form>
@@ -48,16 +48,16 @@ class Messages extends React.Component
     const allMessages =  this.props.messagesList;
     const messagesClean = allMessages.map( (message) => {
         return(
-          <p key={ message.creation } id="msg">
+          <p key={ message.creation } className="msg">
             { message.content }
           </p>
         );
     });
 
     return(
-      <ul>
+      <div>
         { messagesClean }
-      </ul>
+      </div>
     );
   }
 }
@@ -69,38 +69,20 @@ function Channels( props )
   const channelsClean = Object.keys(allChannels).map( (channel) => {
     return(
       <p key={ channel }>
-        <button onClick={ () => props.onChannelClick(channel) }> {channel} </button>
+        <button className="channel-button" onClick={ () => props.onChannelClick(channel) }> {channel} </button>
       </p>
     );
   });
 
   return(
-    <ul>
+    <div>
+    <h1 className="channel-title">Channels</h1>
       { channelsClean }
-    </ul>
+    </div>
   );
 }
 
 // class Channels extends React.Component
-// {
-//   render()
-//   {
-//     const allChannels = this.props.channelsList;
-//     const channelsClean = Object.keys(allChannels).map( (channel) => {
-//       return(
-//         <li key={ channel }>
-//           <button onClick={ () => this.props.onChannelClick(channel) }> {channel} </button>
-//         </li>
-//       );
-//     });
-//
-//     return(
-//       <ul>
-//         { channelsClean }
-//       </ul>
-//     );
-//   }
-// }
 
 class Chat extends React.Component
 {
@@ -115,25 +97,22 @@ class Chat extends React.Component
         general: {
           // name: '',
           messages: [ {
-            creation: '1',
-            content: 'general test',
-          }, {
-            creation: '2',
-            content: 'Second general message',
+            creation: Date.now(),
+            content: 'Here is the general channel',
           }],
         },
         fun: {
           // name: '',
           messages: [ {
-            creation: '',
-            content: 'fun test',
+            creation: Date.now(),
+            content: 'Here is the fun channel',
           } ],
         },
         work: {
           // name: '',
           messages: [ {
-            creation: '',
-            content: 'work test',
+            creation: Date.now(),
+            content: 'Here is the work channel',
           } ],
         },
       },
@@ -154,8 +133,8 @@ class Chat extends React.Component
 
     return(
       <div className="chat" align="left">
+        <h1 className="chat-title">{currentChannel}</h1>
         <div className="channels-list">
-        <p>Channels:</p>
             <Channels
               channelsList={ channelsList }
               onChannelClick={ (channel) => this.handleChannelClick(channel) }
@@ -202,22 +181,8 @@ class Chat extends React.Component
 
     this.setState( prevState => ( {
       channels: channels,
-      // channels[currentChannel].messages: messages,
       currentMessage: '',
     } ) );
-
-    // this.setState( {
-    //     channels[this.state.currentChannel].messages: messages.concat( [ {
-    //     creation: '99',
-    //     content: message,
-    //    } ] ),
-    //   currentMessage: '',
-    // } );
-
-    // this.setState( {
-    //   messages: messages.concat( [ message ] ),
-    //   currentMessage: '',
-    // } );
   }
 
   handleChannelClick(channel)

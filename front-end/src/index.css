@@ -1,6 +1,7 @@
 body {
   font: 14px "Century Gothic", Futura, sans-serif;
   margin: 20px;
+  background-color: #444444;
 }
 
 ol, ul {
@@ -50,28 +51,69 @@ ol, ul {
 }
 
 .chat {
-  background-color: black;
+  background-color: #222222;
   color: white;
+  height: 500px;
+}
+
+.chat-title {
+  padding: 1%;
+  text-align: center;
 }
 
 .channels-list {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-  width: 20%;
+  width: 15%;
+  padding: 2%;
+  margin-left: 3%;
+  text-align: center;
+  background-color: #333333;
+  float: left;
 }
 
-#msg {
-  width: 200px; 
-  padding-top: 15px; 
-  padding-bottom: 15px; 
-  border: 3px solid blue; 
-  text-align: center; 
-  background: yellow;
+.channel-title {
+  padding: 2%;
+}
+
+.channel-button {
+  padding: 5% 15% 5% 15%;
+  color: black;
+  background-color: #22aaff;
+  border: none;
+}
+
+.messages-list {
+  /* height: 300px; */
+}
+
+.msg {
+  width: 300px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  border: 3px solid blue;
+  text-align: left;
+  padding-left: 1%;
+  padding-right: 1%;
+  background: #0099bb;
   border-radius: 10px;
-  color: blue;
+  color: white;
+  border: none;
 }
 
 .inputMessage{
-  background-color: blue;
+  background-color: #005588;
+  color: white;
+  padding-left: 1%;
+  margin: 1%;
   height: 50px;
-  border-color: yellow;
+  width: 30%;
+  border-color: grey;
+  border: none;
+}
+
+.send-button {
+  padding: 1%;
+  color: white;
+  background-color: #333333;
+  border: none;
 }
