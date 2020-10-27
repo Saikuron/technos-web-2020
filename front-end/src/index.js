@@ -44,6 +44,7 @@ class Messages extends React.Component
 {
   render()
   {
+    // Take all messages from the parent and format them into list elements
     const allMessages =  this.props.messagesList;
     const messagesClean = allMessages.map( (message) => {
         return(
@@ -63,6 +64,7 @@ class Messages extends React.Component
 
 function Channels( props )
 {
+  // Take all channels from the parent and format them into buttons
   const allChannels = props.channelsList;
   const channelsClean = Object.keys(allChannels).map( (channel) => {
     return(
