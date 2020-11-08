@@ -1,6 +1,6 @@
-## Frontend part
+## Front-end part
 
-This is a simple tic tac toe
+This is the front-end part of our project
 
 ### Installation
 

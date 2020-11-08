@@ -16,7 +16,7 @@ npm install
 Start the web application:
 
 ```bash
-node ./bin/start
+./bin/start
 Chat is waiting for you at http://localhost:3000
 ```
 
