@@ -9,11 +9,12 @@ function Messages( props )
         { props.messages.map( (message, i) => (
           <li key={i} style={props.cssMessage}>
             <p>
-              <span>{message.author}</span>
-              {' '}
-              <span>{(new Date(message.creation)).toString()}</span>
+              From <span style={{fontWeight  : 'bold'}}>{message.author}</span>
+              {''}
+              <br/>
+              <span style={{color: 'red'}}>{(new Date(message.creation)).toString()}</span>
             </p>
-            <div>
+            <div style={{paddingLeft: '30px',paddingRight: '30px'}}>
               {
                 message.content
                 .split(/(\n +\n)/)

@@ -6,6 +6,7 @@ import { jsx } from '@emotion/core'
 import Header from './Header'
 import Main from './Main'
 import Footer from './Footer'
+import Color from './Color'
 
 const styles = {
   root: {
@@ -66,11 +67,15 @@ const styles = {
     ':hover': {
       backgroundColor: 'rgba(255,255,255,.2)',
     },
+    textAlign: 'justify',
   },
   form: {
     borderTop: '2px solid #373B44',
     padding: '.5rem',
     display: 'flex',
+    position: 'absolute',
+    bottom: '80px',
+    width: '50%',
   },
   content: {
     flex: '1 1 auto',
@@ -95,7 +100,7 @@ export default ({
   }
 }) => {
   const [messages, setMessages] = useState([{
-    author: 'sergei',
+    author: 'Sergei',
     creation: 1602831101929,
     content: `
     ## 1 - Architecture - Level easy
@@ -128,7 +133,7 @@ export default ({
     \`\`\`
     `,
   },{
-    author: 'david',
+    author: 'David',
     creation: 1602832138892,
     content: `
     ## 2 - Styles - Level easy
@@ -138,7 +143,7 @@ export default ({
     with an icon, working on the header, providing day/night themes ... be creative
     `,
   },{
-    author: 'sergei',
+    author: 'Sergei',
     creation: 1602840139202,
     content: `
     ## 3 - Use an external library - Level medium
@@ -152,7 +157,7 @@ export default ({
     and act accordingly.
     `,
   },{
-    author: 'david',
+    author: 'David',
     creation: 1602844139200,
     content: `
     ## 4 - Support message contents in Markdown - Level hard
@@ -179,6 +184,7 @@ export default ({
   return (
     <div className="App" css={styles.root}>
       <Header className="App-header" cssHeader={styles.header}/>
+      <Color/>
        <Main className="App-main" cssMain={styles.main}
         cssChannels={styles.channels}
         cssChannel={styles.channel}

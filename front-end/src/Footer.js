@@ -4,7 +4,7 @@ function Footer( props )
 {
   return(
     <footer className={props.className} style={props.cssFooter}>
-      footer
+      <a href="mailto: lucas.rietsch@edu.ece.fr" style={{color: 'white'}}>Contact us!</a>
     </footer>
   );
 }
