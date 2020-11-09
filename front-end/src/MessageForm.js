@@ -8,7 +8,7 @@ import React from 'react';
 //       const data = new FormData(e.target);
 //       addMessage({
 //         content: data.get('content'),
-//         author: 'david',
+//         author: 'Lucas',
 //         creation: Date.now(),
 //       });
 //       e.target.elements.content.value = '';
@@ -33,7 +33,7 @@ function MessageForm( props )
     const data = new FormData(e.target);
     props.addMessage({
       content: data.get('content'),
-      author: 'david',
+      author: 'Lucas',
       creation: Date.now(),
     });
     e.target.elements.content.value = '';
@@ -42,7 +42,7 @@ function MessageForm( props )
   return(
     <form style = {props.cssForm}  onSubmit = {onSubmit}>
       <input type = "input" name = "content" style = {props.cssContent} />
-      <input type = "submit" value = "Send" style = {props.cssSend} />
+      <input type = "image"  src="paper-plane.png" style = {props.cssSend} />
     </form>
   );
 }

@@ -6,7 +6,7 @@ class Color extends React.Component {
     constructor(props) {
     super(props);
     this.state = {
-        color : "white",
+        color : "Dark Mode",
         whiteIsNext: true
     };
   }
@@ -15,13 +15,11 @@ class Color extends React.Component {
     handleColor(i)
     {
 
-        this.state.color = this.state.whiteIsNext ? "green" : "white";
+        this.state.color = this.state.whiteIsNext ? "Light Mode" : "Dark Mode";
 
         this.setState({
           whiteIsNext: !this.state.whiteIsNext
         });
-
-          console.log(this.state.color);
       }
 
     
@@ -32,7 +30,7 @@ class Color extends React.Component {
     return(
         <div>
             <button onClick={i => this.handleColor(i)}>
-                Change style
+                {this.state.color}
             </button>
         </div>
         )

@@ -16,6 +16,10 @@ const styles = {
     backgroundColor: '#565E71',
     padding: '50px',
   },
+  color: {
+    backgroundColor: 'green',
+    height: '100px',
+  },
   header: {
     height: '60px',
     backgroundColor: 'rgba(255,255,255,.3)',
@@ -184,7 +188,7 @@ export default ({
   return (
     <div className="App" css={styles.root}>
       <Header className="App-header" cssHeader={styles.header}/>
-      <Color/>
+      <Color cssColor={styles.color}/>
        <Main className="App-main" cssMain={styles.main}
         cssChannels={styles.channels}
         cssChannel={styles.channel}
