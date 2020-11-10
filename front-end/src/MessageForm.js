@@ -31,8 +31,11 @@ function MessageForm( props )
   const onSubmit = (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
+    let cont = data.get('content')
+    if( !cont )
+      return
     props.addMessage({
-      content: data.get('content'),
+      content: cont,
       author: 'Lucas',
       creation: Date.now(),
     });
@@ -42,7 +45,7 @@ function MessageForm( props )
   return(
     <form style = {props.cssForm}  onSubmit = {onSubmit}>
       <input type = "input" name = "content" style = {props.cssContent} />
-      <input type = "image"  src="paper-plane.png" style = {props.cssSend} />
+      <input type = "image"  src={require("./send.png")} alt="Send" width="22" height="48" style = {props.cssSend} />
     </form>
   );
 }

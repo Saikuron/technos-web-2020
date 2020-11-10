@@ -18,15 +18,12 @@ function Messages( props )
 
   return(
     <div style={props.cssMessages}>
-      <h1>Messages for {props.channel.name}</h1>
+      <h1 style={props.cssMessagesTitle}>Messages for {props.channel.name}</h1>
       <ul>
         { props.messages.map( (message, i) => (
           <li key={i} style={props.cssMessage}>
-            <p>
-              From <span style={{fontWeight  : 'bold'}}>{message.author}</span>
-              {''}
-              <br/>
-              <div style={{color: 'red'}}>
+              <span style={props.cssMessageAuthor}>{ message.author }</span>
+              <div style={props.cssMessageDate}>
               {
                 dayjs( message.creation ).isToday() ? (
                   dayjs().diff( dayjs( message.creation ), 'minute' ) < 15 ?
@@ -37,8 +34,7 @@ function Messages( props )
                 dayjs( message.creation ).format('L - LT')
               }
               </div>
-            </p>
-            <div style={{paddingLeft: '30px',paddingRight: '30px'}}>
+            <div style={props.cssMessageContent}>
               {
                 message.content
                 .split(/(\n +\n)/)

@@ -6,7 +6,7 @@ import { jsx } from '@emotion/core'
 import Header from './Header'
 import Main from './Main'
 import Footer from './Footer'
-import Color from './Color'
+// import Color from './Color'
 
 const styles = {
   root: {
@@ -21,7 +21,9 @@ const styles = {
     height: '100px',
   },
   header: {
-    height: '60px',
+    textAlign: 'center',
+    height: '50px',
+    paddingBottom: '1.5%',
     backgroundColor: 'rgba(255,255,255,.3)',
     flexShrink: 0,
   },
@@ -32,9 +34,19 @@ const styles = {
     backgroundColor: 'blue',
   },
   footer: {
-    height: '30px',
+    textAlign: 'center',
+    height: '50px',
+    paddingTop: '1.5%',
+    color: 'white',
     backgroundColor: 'rgba(255,255,255,.3)',
     flexShrink: 0,
+  },
+  footerText: {
+    color: 'white',
+    textDecoration: 'none',
+  },
+  footerSeparation: {
+    margin: '0.5%',
   },
   main: {
     backgroundColor: '#373B44',
@@ -52,6 +64,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     overflow: 'hidden',
+    backgroundColor: '#3A3F55',
   },
   messages: {
     flex: '1 1 auto',
@@ -64,36 +77,65 @@ const styles = {
       'listStyleType': 0,
     },
   },
+  messagesTitle: {
+    textAlign: 'center',
+  },
   message: {
-    margin: '.2rem',
-    padding: '.2rem',
-    // backgroundColor: '#66728E',
+    // margin: '.2rem',
+    // padding: '.2rem',
+    backgroundColor: '#667788',
     ':hover': {
       backgroundColor: 'rgba(255,255,255,.2)',
     },
     textAlign: 'justify',
+    margin: '2%',
+    listStyleType: 'none',
+    paddingLeft: '2%',
+    paddingRight: '1%',
+    paddingTop: '0.6%',
+    paddingBottom: '1%',
+    borderRadius: '20px',
+  },
+  messageAuthor: {
+    fontWeight  : 'bold',
+    marginBottom: '2%',
+    color: '#66ccff',
+  },
+  messageDate: {
+    color: '#333333',
+    marginTop: '0.3%',
+    marginBottom: '1%',
+  },
+  messageContent: {
+    paddingLeft: '30px',
+    paddingRight: '30px',
+    border: '1px solid black',
+    borderRadius: '25px',
   },
   form: {
-    borderTop: '2px solid #373B44',
+    // borderTop: '2px solid #373B44',
     padding: '.5rem',
+    paddingLeft: '20%',
+    paddingRight: '20%',
     display: 'flex',
-    position: 'absolute',
-    bottom: '80px',
-    width: '50%',
+    justifyContent: 'center',
   },
   content: {
-    flex: '1 1 auto',
+    // flex: '1 1 auto',
+    flexGrow: '8',
+    // width: '70%',
     marginRight: '.5rem'
   },
   send: {
     backgroundColor: '#D6DDEC',
     padding: '.2rem .5rem',
-    border: 'none',
+    border: '',
     ':hover': {
       backgroundColor: '#2A4B99',
       cursor: 'pointer',
       color: '#fff',
     },
+    flexGrow: '1',
   },
 
 }
@@ -188,12 +230,16 @@ export default ({
   return (
     <div className="App" css={styles.root}>
       <Header className="App-header" cssHeader={styles.header}/>
-      <Color cssColor={styles.color}/>
+      {/*<Color cssColor={styles.color}/>*/}
        <Main className="App-main" cssMain={styles.main}
         cssChannels={styles.channels}
         cssChannel={styles.channel}
         cssMessages={styles.messages}
+        cssMessagesTitle={styles.messagesTitle}
         cssMessage={styles.message}
+        cssMessageAuthor = {styles.messageAuthor}
+        cssMessageDate = {styles.messageDate}
+        cssMessageContent = {styles.messageContent}
         cssForm={styles.form}
         cssContent={styles.content}
         cssSend={styles.send}
@@ -201,7 +247,10 @@ export default ({
         messages={messages}
         addMessage={addMessage}
       />
-      <Footer className="App-footerLab" cssFooter={styles.footer}/>
+      <Footer className="App-footerLab" cssFooter={styles.footer}
+        cssFooterText={styles.footerText}
+        cssFooterSeparation={ styles.footerSeparation }
+      />
     </div>
   );
 }

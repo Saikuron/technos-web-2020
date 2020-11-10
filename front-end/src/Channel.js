@@ -8,7 +8,11 @@ function Channel( props )
   return(
     <div style = {props.cssChannel}>
       <Messages cssMessages = {props.cssMessages}
+        cssMessagesTitle = {props.cssMessagesTitle}
         cssMessage = {props.cssMessage}
+        cssMessageAuthor = {props.cssMessageAuthor}
+        cssMessageDate = {props.cssMessageDate}
+        cssMessageContent = {props.cssMessageContent}
         channel = {props.channel}
         messages = {props.messages}
       />

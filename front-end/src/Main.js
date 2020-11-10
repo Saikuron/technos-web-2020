@@ -10,7 +10,11 @@ function Main( props )
       <Channels cssChannels={props.cssChannels}/>
       <Channel cssChannel = {props.cssChannel}
         cssMessages = {props.cssMessages}
+        cssMessagesTitle = {props.cssMessagesTitle}
         cssMessage = {props.cssMessage}
+        cssMessageAuthor = {props.cssMessageAuthor}
+        cssMessageDate = {props.cssMessageDate}
+        cssMessageContent = {props.cssMessageContent}
         cssForm={props.cssForm}
         cssContent={props.cssContent}
         cssSend={props.cssSend}
