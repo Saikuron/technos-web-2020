@@ -96,7 +96,7 @@ export default ({
 }) => {
   const [messages, setMessages] = useState([{
     author: 'sergei',
-    creation: 1602831101929,
+    creation: 1604241219000,
     content: `
     ## 1 - Architecture - Level easy
 
@@ -129,7 +129,7 @@ export default ({
     `,
   },{
     author: 'david',
-    creation: 1602832138892,
+    creation: 1604241931000,
     content: `
     ## 2 - Styles - Level easy
 
@@ -139,7 +139,7 @@ export default ({
     `,
   },{
     author: 'sergei',
-    creation: 1602840139202,
+    creation: 1604310451000,
     content: `
     ## 3 - Use an external library - Level medium
 
@@ -153,7 +153,7 @@ export default ({
     `,
   },{
     author: 'david',
-    creation: 1602844139200,
+    creation: 1604949631000,
     content: `
     ## 4 - Support message contents in Markdown - Level hard
 

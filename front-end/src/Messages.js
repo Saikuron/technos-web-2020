@@ -1,7 +1,21 @@
 import React from 'react';
 
+var dayjs = require('dayjs');
+
+var isToday = require('dayjs/plugin/isToday')
+var isYesterday = require('dayjs/plugin/isYesterday')
+var localizedFormat = require('dayjs/plugin/localizedFormat')
+var relativeTime = require('dayjs/plugin/relativeTime')
+
+dayjs.extend(isToday)
+dayjs.extend(isYesterday)
+dayjs.extend(localizedFormat)
+dayjs.extend(relativeTime)
+
 function Messages( props )
 {
+  const loc = dayjs.locale()
+
   return(
     <div style={props.cssMessages}>
       <h1>Messages for {props.channel.name}</h1>
@@ -11,7 +25,17 @@ function Messages( props )
             <p>
               <span>{message.author}</span>
               {' '}
-              <span>{(new Date(message.creation)).toString()}</span>
+              <div>
+              {
+                dayjs( message.creation ).isToday() ? (
+                  dayjs().diff( dayjs( message.creation ), 'minute' ) < 15 ?
+                    dayjs( message.creation ).fromNow() :
+                    dayjs( message.creation ).format('LT')
+                ) :
+                dayjs( message.creation ).isYesterday() ? (loc === "fr" ? "Hier - " : "Yesterday - ") + dayjs( message.creation ).format('LT') :
+                dayjs( message.creation ).format('L - LT')
+              }
+              </div>
             </p>
             <div>
               {
