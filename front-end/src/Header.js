@@ -4,7 +4,7 @@ function Header( props )
 {
   return(
     <header className={props.className} style={props.cssHeader}>
-      <h1>header</h1>
+      <h1>ECE WebChat application</h1>
     </header>
   );
 }

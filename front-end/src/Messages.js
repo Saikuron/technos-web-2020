@@ -23,9 +23,10 @@ function Messages( props )
         { props.messages.map( (message, i) => (
           <li key={i} style={props.cssMessage}>
             <p>
-              <span>{message.author}</span>
-              {' '}
-              <div>
+              From <span style={{fontWeight  : 'bold'}}>{message.author}</span>
+              {''}
+              <br/>
+              <div style={{color: 'red'}}>
               {
                 dayjs( message.creation ).isToday() ? (
                   dayjs().diff( dayjs( message.creation ), 'minute' ) < 15 ?
@@ -37,7 +38,7 @@ function Messages( props )
               }
               </div>
             </p>
-            <div>
+            <div style={{paddingLeft: '30px',paddingRight: '30px'}}>
               {
                 message.content
                 .split(/(\n +\n)/)
