@@ -2,12 +2,13 @@ import React from 'react';
 
 import Channels from './Channels';
 import Channel from './Channel';
+import Drawer from './Drawer'
 
 function Main( props )
 {
   return(
     <main className={props.className} style={props.cssMain}>
-      <Channels cssChannels={props.cssChannels}/>
+      <Drawer cssChannels={props.cssChannels}/>
       <Channel cssChannel = {props.cssChannel}
         cssMessages = {props.cssMessages}
         cssMessagesTitle = {props.cssMessagesTitle}

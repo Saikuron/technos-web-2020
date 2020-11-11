@@ -7,6 +7,7 @@ import Header from './Header'
 import Main from './Main'
 import Footer from './Footer'
 // import Color from './Color'
+import Drawer from './Drawer'
 
 const styles = {
   root: {
@@ -39,7 +40,7 @@ const styles = {
     paddingTop: '1.5%',
     color: 'white',
     backgroundColor: 'rgba(255,255,255,.3)',
-    flexShrink: 0,
+    flexShrink: 0
   },
   footerText: {
     color: 'white',
@@ -229,7 +230,6 @@ export default ({
   };
   return (
     <div className="App" css={styles.root}>
-      <Header className="App-header" cssHeader={styles.header}/>
       {/*<Color cssColor={styles.color}/>*/}
        <Main className="App-main" cssMain={styles.main}
         cssChannels={styles.channels}
