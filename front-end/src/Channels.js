@@ -3,23 +3,16 @@ import axios from 'axios';
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 // Layout
-import Link from '@material-ui/core/Link'
-
-
-import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import ForumIcon from '@material-ui/icons/Forum';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -60,16 +53,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const styles = {
-  root: {
-    minWidth: '200px',
-  },
-  channel: {
-    padding: '.2rem .5rem',
-    whiteSpace: 'nowrap',
-  }
-}
-
 export default ({
   onChannel, ...props
 }) => {
@@ -81,16 +64,13 @@ export default ({
     }
     fetch()
   }, [])
-
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
-
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-
   const drawer = (
     <div>
       <div className={classes.toolbar} />
@@ -113,26 +93,8 @@ export default ({
       <Divider />
     </div>
   );
-
   const container = window !== undefined ? () => window().document.body : undefined;
-
-
   return (
-    // <ul style={styles.root}>
-    //   { channels.map( (channel, i) => (
-    //     <li key={i} css={styles.channel}>
-    //       <Link
-    //         href="#"
-    //         onClick={ (e) => {
-    //           e.preventDefault()
-    //           onChannel(channel)
-    //         }}
-    //         >
-    //         {channel.name}
-    //       </Link>
-    //     </li>
-    //   ))}
-    // </ul>
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
@@ -152,7 +114,6 @@ export default ({
         </Toolbar>
       </AppBar>
       <nav className={classes.drawer} aria-label="mailbox folders">
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Hidden smUp implementation="css">
           <Drawer
             container={container}

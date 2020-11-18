@@ -1,4 +1,4 @@
-import {useRef, useState} from 'react';
+import { useRef, useState } from 'react';
 import axios from 'axios';
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
@@ -47,14 +47,14 @@ export default ({
   }
   const fetchMessages = async () => {
     setMessages([])
-    const {data: messages} = await axios.get(`http://localhost:3001/channels/${channel.id}/messages`)
+    const { data: messages } = await axios.get(`http://localhost:3001/channels/${channel.id}/messages`)
     setMessages(messages)
-    if(listRef.current){
+    if (listRef.current) {
       listRef.current.scroll()
     }
   }
-  
-  if(channelId.current !== channel.id){
+
+  if (channelId.current !== channel.id) {
     fetchMessages()
     channelId.current = channel.id
   }

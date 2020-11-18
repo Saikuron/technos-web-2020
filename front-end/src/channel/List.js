@@ -8,7 +8,7 @@ import unified from 'unified'
 import markdown from 'remark-parse'
 import remark2rehype from 'remark-rehype'
 import html from 'rehype-stringify'
-// Time
+// Time // David Worms version, I used mine instead
 // import dayjs from 'dayjs'
 // import calendar from 'dayjs/plugin/calendar'
 // import updateLocale from 'dayjs/plugin/updateLocale'
@@ -19,14 +19,11 @@ import html from 'rehype-stringify'
 //     sameElse: 'DD/MM/YYYY hh:mm A'
 //   }
 // })
-
 var dayjs = require('dayjs');
-
 var isToday = require('dayjs/plugin/isToday')
 var isYesterday = require('dayjs/plugin/isYesterday')
 var localizedFormat = require('dayjs/plugin/localizedFormat')
 var relativeTime = require('dayjs/plugin/relativeTime')
-
 dayjs.extend(isToday)
 dayjs.extend(isYesterday)
 dayjs.extend(localizedFormat)
@@ -45,7 +42,6 @@ const useStyles = (theme) => ({
     },
   },
   messagesTitle: {
-    // textAlign: 'center',
     paddingLeft: '5%',
   },
   message: {

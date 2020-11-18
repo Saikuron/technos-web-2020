@@ -23,9 +23,9 @@ const styles = {
 export default () => {
   return (
     <footer css={styles.footer}>
-      <a href="mailto: lucas.rietsch@edu.ece.fr" css={ styles.footerText }>Email us</a>
-      <span css={ styles.footerSeparation }> | </span>
-      <a href="tel: 0766112538" css={ styles.footerText }>Call us</a>
+      <a href="mailto: lucas.rietsch@edu.ece.fr" css={styles.footerText}>Email us</a>
+      <span css={styles.footerSeparation}> | </span>
+      <a href="tel: 0766112538" css={styles.footerText}>Call us</a>
     </footer>
   );
 }
