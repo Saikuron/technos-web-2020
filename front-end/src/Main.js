@@ -1,30 +1,30 @@
-import React from 'react';
+import {useState} from 'react'
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
+// Local
+import Channels from './Channels'
+import Channel from './Channel'
+import Welcome from './Welcome'
 
-import Channels from './Channels';
-import Channel from './Channel';
-import Drawer from './Drawer'
+const styles = {
+  main: {
+    backgroundColor: '#373B44',
+    overflow: 'hidden',
+    flex: '1 1 auto',
+    display: 'flex',
+    flexDirection: 'row',
+  },
+}
 
-function Main( props )
-{
-  return(
-    <main className={props.className} style={props.cssMain}>
-      <Drawer cssChannels={props.cssChannels}/>
-      <Channel cssChannel = {props.cssChannel}
-        cssMessages = {props.cssMessages}
-        cssMessagesTitle = {props.cssMessagesTitle}
-        cssMessage = {props.cssMessage}
-        cssMessageAuthor = {props.cssMessageAuthor}
-        cssMessageDate = {props.cssMessageDate}
-        cssMessageContent = {props.cssMessageContent}
-        cssForm={props.cssForm}
-        cssContent={props.cssContent}
-        cssSend={props.cssSend}
-        addMessage = {props.addMessage}
-        channel = {props.channel}
-        messages = {props.messages}
-      />
+export default () => {
+  const [channel, setChannel] = useState(null)
+  const fetchChannel = async (channel) => {
+    setChannel(channel)
+  }
+  return (
+    <main css={styles.main}>
+      <Channels onChannel={fetchChannel} />
+      {channel ? <Channel channel={channel} messages={[]} /> : <Welcome />}
     </main>
   );
 }
-
-export default Main;
