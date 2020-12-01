@@ -28,7 +28,7 @@ export default () => {
       {
         user ? <Main /> : <Login onUser={setUser} />
       }
-      <Footer />
+      <Footer user={user} />
     </div>
   );
 }
