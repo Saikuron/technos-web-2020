@@ -70,7 +70,7 @@ export default ({
       code_challenge,
       code_verifier,
       data,
-      redirect_uri = "http://127.0.0.1:3000/callback",
+      redirect_uri = "http://127.0.0.1:5555/callback",
       scope = ["openid", "email", "offline_access"],
       // stdout,
       url;
@@ -128,7 +128,7 @@ export default ({
     const qs = require('qs');
     let token_endpoint = "http://127.0.0.1:5556/dex/token",
       client_id = "example-app",
-      redirect_uri = "http://127.0.0.1:3000/callback",
+      redirect_uri = "http://127.0.0.1:5555/callback",
       client_secret = "";
     const getData = async () => {
       let { data: tokens } = await axios.post(token_endpoint, qs.stringify({
@@ -146,7 +146,7 @@ export default ({
     }
     // await getData()
     getData()
-    // document.location.href = "http://127.0.0.1:3000/";
+    // document.location.href = "http://127.0.0.1:5555/";
   }
   // else {
     // let id_token = getCookie('id_token')
@@ -154,7 +154,7 @@ export default ({
     // let refresh_token = getCookie('refresh_token')
     if (access_token /*&& id_token && refresh_token*/) {
       // No need to connect
-      // onUser({ username: 'david' })
+      onUser({ username: 'david' })
       // I can't add await here but I think it would solve the problem
       let inf = getUserInfo(access_token);
       // Change refresh token
