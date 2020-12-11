@@ -1,12 +1,20 @@
-import {useState} from 'react'
-import './App.css';
+import { useContext, useState } from 'react'
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 // Local
+import Oups from './Oups'
 import Footer from './Footer'
 import Header from './Header'
 import Main from './Main'
 import Login from './Login'
+import Context from './Context'
+// Rooter
+import {
+  Switch,
+  Route,
+  Redirect,
+  useLocation
+} from "react-router-dom"
 
 const styles = {
   root: {
@@ -19,16 +27,49 @@ const styles = {
 }
 
 export default () => {
-  const [user, setUser] = useState(null)
+  const location = useLocation()
+  const {oauth} = useContext(Context)
+  const [drawerMobileVisible, setDrawerMobileVisible] = useState(false)
+  const drawerToggleListener = () => {
+    setDrawerMobileVisible(!drawerMobileVisible)
+  }
   return (
     <div className="App" css={styles.root}>
-      {
-        user? '': <Header />
-      }
-      {
-        user ? <Main /> : <Login onUser={setUser} />
-      }
-      <Footer user={user} />
+      <Header drawerToggleListener={drawerToggleListener}/>
+      <Switch>
+        <Route exact path="/">
+          {
+            oauth ? (
+              <Redirect
+                to={{
+                  pathname: "/channels",
+                  state: { from: location }
+                }}
+              />
+            ) : (
+              <Login />
+            )
+          }
+        </Route>
+        <Route path="/channels">
+          {
+            oauth ? (
+              <Main />
+            ) : (
+              <Redirect
+                to={{
+                  pathname: "/",
+                  state: { from: location }
+                }}
+              />
+            )
+          }
+        </Route>
+        <Route path="/Oups">
+          <Oups />
+        </Route>
+      </Switch>
+      <Footer />
     </div>
   );
 }

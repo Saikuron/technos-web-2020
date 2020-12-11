@@ -1,33 +1,111 @@
 
-# ECE WebTech Chat
+# Chat application - final project
 
-This is a simple chat application. It is composed of different micro projects.
+*presentation, introduction, ...*
 
-## Installation
+## Usage
 
-Clone the project and go into it with the following command in your terminal
+*how to start and use the application, run the tests, ...*
 
-```bash
-git clone https://github.com/Saikuron/technos-web-2020.git
-cd technos-web-2020/
-```
+* Clone this repository, from your local machine:
+  ```
+  git clone https://github.com/adaltas/ece-2020-fall-webtech-project.git webtech
+  cd webtech
+  ```
+* Install [Go](https://golang.org/) and [Dex](https://dexidp.io/docs/getting-started/). For example, on Ubuntu, from your project root directory:   
+  ```
+  # Install Go
+  apt install golang-go
+  # Download Dex
+  git clone https://github.com/dexidp/dex.git
+  # Build Dex
+  cd dex
+  make
+  make examples
+  ```
+  Note, the provided `.gitignore` file ignore the `dex` folder.
+* Make a copy of the Dex configuration to `./dex-config/config-private.yaml`, the project is configured to Git ignore this path:
+  ```bash
+  cp -rp ./dex-config/config.yaml ./dex-config/config-private.yaml
+  ```
+* Register your GitHub application, get the clientID and clientSecret from GitHub and report them to your Dex configuration. Modify the provided `./dex-config/config-private.yaml` configuration to look like:
+  ```yaml
+  - type: github
+    id: github
+    name: GitHub
+    config:
+      clientID: xxxx98f1c26493dbxxxx
+      clientSecret: xxxxxxxxx80e139441b637796b128d8xxxxxxxxx
+      redirectURI: http://127.0.0.1:5556/dex/callback
+  ```
+* Inside `./dex-config/config-private.yaml`, the frond-end application is already registered and CORS is activated. Now that Dex is built and configured, your can start the Dex server:
+  ```yaml
+  cd dex
+  bin/dex serve ../dex-config/config-private.yaml
+  ```
+* Start the back-end
+  ```bash
+  cd back-end
+  # Install dependencies (use yarn or npm)
+  yarn install
+  # Optional, fill the database with initial data
+  bin/init
+  # Start the back-end
+  bin/start
+  ```
+* Start the front-end
+  ```bash
+  cd front-end
+  # Install dependencies (use yarn or npm)
+  yarn install
+  # Start the front-end
+  yarn start
+  ```
 
-Go in the front-end folder to use the front-end part, or in the back-end folder to use the back-end part
+## Author
 
-```bash
-cd front-end/
-```
-Or
-```bash
-cd back-end/
-```
+*name, email, ...*
 
-## Authors
+## Tasks
 
-Jean de Malliard <br>
-jean.de-malliard@edu.ece.fr<br>
-Student at [ECE Paris](https://www.ece.fr)
+Project management
 
-Lucas Rietsch <br>
-lucas.rietsch@edu.ece.fr <br>
-Student at [ECE Paris](https://www.ece.fr)
+* Naming convention   
+  *place your comments*
+* Project structure   
+  *place your comments*
+* Code quality   
+  *place your comments*
+* Design, UX   
+  *place your comments*
+* Git and DevOps   
+  *place your comments*
+
+Application development
+
+* Welcome screens   
+  *place your comments*
+* New channel creation   
+  *place your comments*
+* Channel membership and access   
+  *place your comments*
+* Ressource access control   
+  *place your comments*
+* Invite users to channels   
+  *place your comments*
+* Message modification   
+  *place your comments*
+* Message removal   
+  *place your comments*
+* Account settings   
+  *place your comments*
+* Gravatar integration   
+  *place your comments*
+* Avatar selection   
+  *place your comments*
+* Personal custom avatar   
+  *place your comments*
+
+## Bonus
+
+*place your comments*

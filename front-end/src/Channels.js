@@ -1,148 +1,59 @@
-import { useState, useEffect } from 'react';
+import {useContext, useEffect} from 'react';
 import axios from 'axios';
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 // Layout
-import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Divider from '@material-ui/core/Divider';
-import Drawer from '@material-ui/core/Drawer';
-import Hidden from '@material-ui/core/Hidden';
-import IconButton from '@material-ui/core/IconButton';
-import ForumIcon from '@material-ui/icons/Forum';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import MenuIcon from '@material-ui/icons/Menu';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import Link from '@material-ui/core/Link'
+// Local
+import Context from './Context'
+import {useHistory} from 'react-router-dom'
 
-const drawerWidth = 240;
+const styles = {
+  // root: {
+  //   minWidth: '200px',
+  // },
+  channel: {
+    padding: '.2rem .5rem',
+    whiteSpace: 'nowrap', 
+  }
+}
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-  },
-  drawer: {
-    [theme.breakpoints.up('sm')]: {
-      width: drawerWidth,
-      flexShrink: 0,
-    },
-  },
-  appBar: {
-    [theme.breakpoints.up('sm')]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
-    },
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    },
-  },
-  // necessary for content to be below app bar
-  toolbar: theme.mixins.toolbar,
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-  },
-}));
-
-export default ({
-  onChannel, ...props
-}) => {
-  const [channels, setChannels] = useState([])
-  useEffect(() => {
+export default () => {
+  const {
+    oauth,
+    channels, setChannels
+  } = useContext(Context)
+  const history = useHistory();
+  useEffect( () => {
     const fetch = async () => {
-      const { data: channels } = await axios.get('http://localhost:3001/channels')
-      setChannels(channels)
+      try{
+        const {data: channels} = await axios.get('http://localhost:3001/channels', {
+          headers: {
+            'Authorization': `Bearer ${oauth.access_token}`
+          }
+        })
+        setChannels(channels)
+      }catch(err){
+        console.error(err)
+      }
     }
     fetch()
-  }, [])
-  const { window } = props;
-  const classes = useStyles();
-  const theme = useTheme();
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
-  const drawer = (
-    <div>
-      <div className={classes.toolbar} />
-      <Divider />
-      <List>
-        {channels.map((channel, index) => (
-          <ListItem button key={channel} onClick={(e) => {
-            e.preventDefault()
-            onChannel(channel)
-          }}>
-            <ListItemIcon>
-              <ForumIcon fontSize="medium" color="primary" />
-            </ListItemIcon>
-            <ListItem primary={channel} >
-              {channel.name}
-            </ListItem>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-    </div>
-  );
-  const container = window !== undefined ? () => window().document.body : undefined;
+  }, [oauth, setChannels])
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            className={classes.menuButton}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap >
-            ECE WebChat Application
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <nav className={classes.drawer} aria-label="mailbox folders">
-        <Hidden smUp implementation="css">
-          <Drawer
-            container={container}
-            variant="temporary"
-            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
+    <ul style={styles.root}>
+      { channels.map( (channel, i) => (
+        <li key={i} css={styles.channel}>
+          <Link
+            href={`/channels/${channel.id}`}
+            onClick={ (e) => {
+              e.preventDefault()
+              history.push(`/channels/${channel.id}`)
             }}
           >
-            {drawer}
-          </Drawer>
-        </Hidden>
-        <Hidden xsDown implementation="css">
-          <Drawer
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            variant="permanent"
-            open
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-      </nav>
-    </div>
+            {channel.name}
+          </Link>
+        </li>
+      ))}
+    </ul>
   );
 }

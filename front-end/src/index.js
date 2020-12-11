@@ -1,27 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { CookiesProvider } from 'react-cookie';
 import './index.css';
 import App from './App';
+import { Provider as ContextProvider } from './Context';
 import * as serviceWorker from './serviceWorker';
 import 'typeface-roboto'
 // Layout
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
+import {
+  BrowserRouter as Router,
+} from "react-router-dom";
 
 const theme = createMuiTheme({
   palette: {
-    primary: {
-      main: '#667788',
-      contrastText: '#fff',
-    },
     type: 'dark',
   }
 });
 
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <App />
-    </ThemeProvider>
+    <ContextProvider>
+      <CookiesProvider>
+        <ThemeProvider theme={theme}>
+          <Router>
+            <App />
+          </Router>
+        </ThemeProvider>
+      </CookiesProvider>
+    </ContextProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

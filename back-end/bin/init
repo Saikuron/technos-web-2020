@@ -27,7 +27,7 @@ const config = {
       - 'Channel.js' prints the messages, uses 'Messages.js' and 'MessageSend.js'
       - 'Messages.js' prints the list of messages inside the current channel
       - 'MessageForm.js' send a new message
-  
+
       \`\`\`
       +--------------------------------------------+
       |                  Header                    |

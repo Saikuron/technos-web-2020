@@ -1,3 +1,8 @@
-node_modules/
-db/
+.*
+node_modules
 package-lock.json
+yarn.lock
+/dex-config
+/dex
+/back-end/db
+!.gitignore
