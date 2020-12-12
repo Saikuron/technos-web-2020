@@ -1,12 +1,12 @@
-import {useContext, useEffect} from 'react';
-import axios from 'axios';
+// import { useState } from 'react';
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 // Layout
 import Link from '@material-ui/core/Link'
 // Local
-import Context from './Context'
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
+import { IconButton } from '@material-ui/core';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 const styles = {
   // root: {
@@ -14,46 +14,38 @@ const styles = {
   // },
   channel: {
     padding: '.2rem .5rem',
-    whiteSpace: 'nowrap', 
+    whiteSpace: 'nowrap',
   }
 }
 
-export default () => {
-  const {
-    oauth,
-    channels, setChannels
-  } = useContext(Context)
+export default ({channels}) => {
   const history = useHistory();
-  useEffect( () => {
-    const fetch = async () => {
-      try{
-        const {data: channels} = await axios.get('http://localhost:3001/channels', {
-          headers: {
-            'Authorization': `Bearer ${oauth.access_token}`
-          }
-        })
-        setChannels(channels)
-      }catch(err){
-        console.error(err)
-      }
-    }
-    fetch()
-  }, [oauth, setChannels])
+  const addChannel = (e) => {
+    e.preventDefault();
+    // setFormChannel(true);
+    history.push(`/channels/new`);
+  }
+  // const [formChannel, setFormChannel] = useState(false);
   return (
-    <ul style={styles.root}>
-      { channels.map( (channel, i) => (
-        <li key={i} css={styles.channel}>
-          <Link
-            href={`/channels/${channel.id}`}
-            onClick={ (e) => {
-              e.preventDefault()
-              history.push(`/channels/${channel.id}`)
-            }}
-          >
-            {channel.name}
-          </Link>
-        </li>
-      ))}
-    </ul>
+    <div>
+      <ul style={styles.root}>
+        {channels.map((channel, i) => (
+          <li key={i} css={styles.channel}>
+            <Link
+              href={`/channels/${channel.id}`}
+              onClick={(e) => {
+                e.preventDefault()
+                history.push(`/channels/${channel.id}`)
+              }}
+            >
+              {channel.name}
+            </Link>
+          </li>
+        ))}
+      </ul>
+          <IconButton onClick={addChannel}>
+            <AddCircleIcon size='medium' color='primary' />
+          </IconButton>
+    </div>
   );
 }
