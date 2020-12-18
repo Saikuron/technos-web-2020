@@ -53,12 +53,12 @@ export default ({
       >
         <MenuIcon />
       </IconButton>
-      Header
       {
         oauth ?
           <span>
             {oauth.email}
-            <Link onClick={onClickLogout}>logout</Link>
+            <Link> | My account | </Link>
+            <Link onClick={onClickLogout}> Log Out | </Link>
           </span>
         :
           <span>new user</span>
