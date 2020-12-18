@@ -9,13 +9,14 @@ import Context from './Context'
 import {useHistory} from 'react-router-dom'
 
 const styles = {
-   //root: {
-  //   minWidth: '200px',
-   //},
+   root: {
+     minWidth: '200px',
+     paddingTop: '20px',
+     textAlign: 'left',
+   },
   channel: {
     padding: '.2rem .5rem',
     whiteSpace: 'nowrap', 
-    color: 'red',
   },
 }
 
@@ -51,12 +52,12 @@ export default () => {
               history.push(`/channels/${channel.id}`)
             }}
           >
-            {channel.name}
+            • {channel.name}
           </Link>
         </li>
       ))}
       <Link
-        href={`/`}>HOME</Link>
+        href={`/`}>• HOME</Link>
     </ul>
   );
 }

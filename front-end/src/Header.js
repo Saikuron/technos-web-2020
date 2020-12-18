@@ -58,7 +58,7 @@ export default ({
           <span>
             {oauth.email}
             <Link> | My account | </Link>
-            <Link onClick={onClickLogout}> Log Out | </Link>
+            <Link onClick={onClickLogout}> Log Out </Link>
           </span>
         :
           <span>new user</span>
