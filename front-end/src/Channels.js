@@ -9,13 +9,14 @@ import Context from './Context'
 import {useHistory} from 'react-router-dom'
 
 const styles = {
-  // root: {
+   //root: {
   //   minWidth: '200px',
-  // },
+   //},
   channel: {
     padding: '.2rem .5rem',
     whiteSpace: 'nowrap', 
-  }
+    color: 'red',
+  },
 }
 
 export default () => {
@@ -42,7 +43,7 @@ export default () => {
   return (
     <ul style={styles.root}>
       { channels.map( (channel, i) => (
-        <li key={i} css={styles.channel}>
+        <li key={i}>
           <Link
             href={`/channels/${channel.id}`}
             onClick={ (e) => {
@@ -54,6 +55,8 @@ export default () => {
           </Link>
         </li>
       ))}
+      <Link
+        href={`/`}>HOME</Link>
     </ul>
   );
 }
