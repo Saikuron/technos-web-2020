@@ -55,7 +55,14 @@ export default () => {
           'Authorization': `Bearer ${oauth.access_token}`
         }
       })
-      setChannels(channels)
+      let channelsFiltered = []
+      channels.map( (channel) => {
+        if(channel.users && channel.users.some( user => user.email === oauth.email )) {
+          channelsFiltered.push(channel)
+        }
+        return;
+      })
+      setChannels(channelsFiltered)
     } catch (err) {
       console.error(err)
     }

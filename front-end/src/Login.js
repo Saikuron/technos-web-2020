@@ -130,7 +130,7 @@ export default ({
     useEffect( () => {
       const fetch = async () => {
         try {
-          const {data} = await axios.post(
+          const {data: userData} = await axios.post(
             config.token_endpoint
           , qs.stringify ({
             grant_type: 'authorization_code',
@@ -140,8 +140,21 @@ export default ({
             code: `${code}`,
           }))
           removeCookie('code_verifier')
-          setOauth(data)
+          setOauth(userData)
           // window.location = '/'
+          // If we get the user from the db and no return, create user
+          const { data: users } = await axios.get('http://localhost:3001/users')
+          let userExists = false;
+          if( users.some( user => user.email === userData.email )) {
+            // Create a new one
+            userExists = true;
+          }
+          if (!userExists) {
+            await axios.post('http://localhost:3001/users', {
+              username: userData.email,
+              email: userData.email,
+            })
+          }
           history.push('/')
         }catch (err) {
           console.error(err)
