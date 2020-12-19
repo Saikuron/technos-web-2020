@@ -8,6 +8,9 @@ import unified from 'unified'
 import markdown from 'remark-parse'
 import remark2rehype from 'remark-rehype'
 import html from 'rehype-stringify'
+//Icons
+import {ReactComponent as EditIcon} from '../icons/edit.svg';
+import {ReactComponent as TrashIcon} from '../icons/trash.svg';
 // Time
 import dayjs from 'dayjs'
 import calendar from 'dayjs/plugin/calendar'
@@ -52,6 +55,9 @@ const useStyles = (theme) => ({
     top: 0,
     width: '50px',
   },
+  icons: {
+    height: '17px'
+  }
 })
 
 export default forwardRef(({
@@ -101,7 +107,9 @@ export default forwardRef(({
                 <p>
                   <span>{message.author}</span>
                   {' - '}
-                  <span>{dayjs().calendar(message.creation)}</span>
+                  <span>{dayjs().calendar(message.creation)} </span>
+                  <EditIcon css={styles.icons} />
+                  <TrashIcon css={styles.icons} />
                 </p>
                 <div dangerouslySetInnerHTML={{__html: content}}>
                 </div>
