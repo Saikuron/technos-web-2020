@@ -1,4 +1,5 @@
-import {useContext} from 'react'
+import {useContext, useEffect, useCallback} from 'react'
+import axios from 'axios'
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 // Layout
@@ -42,8 +43,6 @@ export default () => {
   const styles = useStyles(theme)
   const alwaysOpen = useMediaQuery(theme.breakpoints.up('sm'))
   const isDrawerVisible = alwaysOpen || drawerVisible
-<<<<<<< HEAD
-=======
   const {
     oauth,
     channels, setChannels
@@ -73,7 +72,6 @@ export default () => {
   const fetchChannels = async () => {
     fetch()
   }
->>>>>>> f5baa04... channels: prints only the channels that we're in
   return (
     <main css={styles.root}>
       <Drawer
