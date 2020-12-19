@@ -7,6 +7,8 @@ import Link from '@material-ui/core/Link'
 // Local
 import Context from './Context'
 import {useHistory} from 'react-router-dom'
+import SendIcon from "@material-ui/icons/Send"
+import Button from "@material-ui/core/Button"
 
 const styles = {
    root: {
@@ -17,6 +19,10 @@ const styles = {
   channel: {
     padding: '.2rem .5rem',
     whiteSpace: 'nowrap', 
+  },
+  send: {
+    width: '70%',
+    textAlign: 'left'
   },
 }
 
@@ -45,19 +51,30 @@ export default () => {
     <ul style={styles.root}>
       { channels.map( (channel, i) => (
         <li key={i}>
-          <Link
-            href={`/channels/${channel.id}`}
-            onClick={ (e) => {
-              e.preventDefault()
-              history.push(`/channels/${channel.id}`)
-            }}
+          <Button
+            variant="contained"
+            css={styles.send}
           >
-            • {channel.name}
-          </Link>
+            <Link
+              href={`/channels/${channel.id}`}
+              onClick={ (e) => {
+                e.preventDefault()
+                history.push(`/channels/${channel.id}`)
+              }}
+            >
+              • {channel.name}
+            </Link>
+          </Button> <br/><br/>
         </li>
       ))}
-      <Link
-        href={`/`}>• HOME</Link>
+      <Button
+        variant="contained"
+        css={styles.send}
+      >
+        <Link
+          href={`/`}>• HOME
+        </Link>
+      </Button>
     </ul>
   );
 }
