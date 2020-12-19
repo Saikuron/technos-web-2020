@@ -10,6 +10,9 @@ const config = {
   await app.listen(config.port);
   await Promise.all([{
     name: 'Channel 1',
+    users: [{
+      email: 'jeand@example.com'
+    }],
     messages: [{
       author: 'sergei',
       creation: 1602831101929,
@@ -88,6 +91,9 @@ const config = {
     }]
   },{
     name: 'Channel 2',
+    users: [{
+      email: 'admin@example.com'
+    }],
     messages: [{
       author: 'sergei',
       creation: 1602223579200,
@@ -103,6 +109,9 @@ const config = {
     }]
   },{
     name: 'Channel 3',
+    users: [{
+      email: 'admin@example.com'
+    }],
     messages: [{
       author: 'sergei',
       creation: 1602223579200,
@@ -118,11 +127,29 @@ const config = {
     }]
   }].map( async (channel) => {
     const {data: {id}} = await axios.post(`http://localhost:${config.port}/channels`, {
-      name: channel.name
+      name: channel.name,
+      users: channel.users
     })
     return Promise.all( channel.messages.map( async (message) => {
       await axios.post(`http://localhost:${config.port}/channels/${id}/messages`, message)
     }))
+  }))
+  // Users examples
+  await Promise.all([{
+      username: 'wdavidw',
+      email: 'wdavid@example.com'
+    },{
+      username: 'sergeik',
+      email: 'ksergei@example.com'
+  },{
+    username: 'jeand',
+    email: 'jeand@example.com'
+  }].map( async (user) => {
+    // const {data: {id}} = 
+    await axios.post(`http://localhost:${config.port}/users`, {
+      username: user.username,
+      email: user.email,
+    })
   }))
   process.exit()
 })();

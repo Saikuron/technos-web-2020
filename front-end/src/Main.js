@@ -1,4 +1,5 @@
-import {useContext} from 'react'
+import {useContext, useEffect, useCallback} from 'react'
+import axios from 'axios'
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 // Layout
@@ -8,6 +9,7 @@ import Drawer from '@material-ui/core/Drawer';
 // Local
 import Context from './Context'
 import Channels from './Channels'
+import ChannelCreation from './ChannelCreation'
 import Channel from './Channel'
 import Welcome from './Welcome'
 import {
@@ -35,13 +37,42 @@ const useStyles = (theme) => ({
 
 export default () => {
   const {
-    currentChannel,
+    // currentChannel,
     drawerVisible,
   } = useContext(Context)
   const theme = useTheme()
   const styles = useStyles(theme)
   const alwaysOpen = useMediaQuery(theme.breakpoints.up('sm'))
   const isDrawerVisible = alwaysOpen || drawerVisible
+  const {
+    oauth,
+    channels, setChannels
+  } = useContext(Context)
+  const fetch = useCallback( async () => {
+    try {
+      const { data: channels } = await axios.get('http://localhost:3001/channels', {
+        headers: {
+          'Authorization': `Bearer ${oauth.access_token}`
+        }
+      })
+      let channelsFiltered = []
+      channels.map( (channel) => {
+        if(channel.users && channel.users.some( user => user.email === oauth.email )) {
+          channelsFiltered.push(channel)
+        }
+        return;
+      })
+      setChannels(channelsFiltered)
+    } catch (err) {
+      console.error(err)
+    }
+  },[oauth, setChannels])
+  useEffect(() => {
+    fetch()
+  }, [oauth, setChannels, fetch])
+  const fetchChannels = async () => {
+    fetch()
+  }
   return (
     <main css={styles.root}>
       <Drawer
@@ -54,11 +85,14 @@ export default () => {
         open={isDrawerVisible}
         css={[styles.drawer, isDrawerVisible && styles.drawerVisible]}
       >
-        <Channels />
+        <Channels channels={channels}/>
       </Drawer>
       <Switch>
+        <Route path="/channels/new">
+          <ChannelCreation fetchChannels={fetchChannels}/>
+        </Route>
         <Route path="/channels/:id">
-          <Channel />
+          <Channel/>
         </Route>
         <Route path="/">
           <Welcome />
