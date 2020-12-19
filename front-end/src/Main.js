@@ -42,6 +42,38 @@ export default () => {
   const styles = useStyles(theme)
   const alwaysOpen = useMediaQuery(theme.breakpoints.up('sm'))
   const isDrawerVisible = alwaysOpen || drawerVisible
+<<<<<<< HEAD
+=======
+  const {
+    oauth,
+    channels, setChannels
+  } = useContext(Context)
+  const fetch = useCallback( async () => {
+    try {
+      const { data: channels } = await axios.get('http://localhost:3001/channels', {
+        headers: {
+          'Authorization': `Bearer ${oauth.access_token}`
+        }
+      })
+      let channelsFiltered = []
+      channels.map( (channel) => {
+        if(channel.users && channel.users.some( user => user.email === oauth.email )) {
+          channelsFiltered.push(channel)
+        }
+        return;
+      })
+      setChannels(channelsFiltered)
+    } catch (err) {
+      console.error(err)
+    }
+  },[oauth, setChannels])
+  useEffect(() => {
+    fetch()
+  }, [oauth, setChannels, fetch])
+  const fetchChannels = async () => {
+    fetch()
+  }
+>>>>>>> f5baa04... channels: prints only the channels that we're in
   return (
     <main css={styles.root}>
       <Drawer
