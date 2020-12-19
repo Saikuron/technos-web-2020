@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import Context from './Context'
 import axios from 'axios';
 
 // import { useTheme } from '@material-ui/core/styles';
@@ -30,13 +31,19 @@ import Button from '@material-ui/core/Button';
 function ChannelCreation({fetchChannels}) {
     // const styles = useStyles(useTheme())
     const [nameContent, setNameContent] = useState('');
+    const {
+        oauth
+        // , setOauth, drawerVisible, setDrawerVisible
+      } = useContext(Context)
     const onSubmit = async () => {
         if(!nameContent) return;
         // const { data: channel } = 
+        console.log(oauth.email)
         await axios.post(
           `http://localhost:3001/channels`
           , {
             name: nameContent,
+            users: [{email:oauth.email}]
         })
         fetchChannels()
         setNameContent('')
@@ -45,6 +52,7 @@ function ChannelCreation({fetchChannels}) {
     const handleChange = (e) => {
         setNameContent(e.target.value);
     }
+    // console.log(oauth.email)
     return (
         <div>
             <h1>Channel Creation</h1>
