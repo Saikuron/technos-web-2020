@@ -35,6 +35,11 @@ const useStyles = (theme) => ({
 
 export default () => {
   const styles = useStyles(useTheme())
+  const addFriends = (e) => {
+    e.preventDefault();
+    // setFormChannel(true);
+    //history.push(`/friends`);
+  }
   return (
     <div css={styles.root}>
       <Grid
@@ -56,10 +61,10 @@ export default () => {
             <Typography color="textPrimary">
               <div css={styles.card}>
                 Welcome to our chat application !<br/>
-                I have no idea what to write here !<br/>
-                But I am happy because my layout works !<br/>
-                Youpi !<br/>
-                Welcome to our chat application !<br/>
+                On the left side there are the channels (you can only access the ones you are in)<br/>
+                Down there are some stuffs you are free to try (settings, account...)<br/>
+                <br/>
+                Enjoy !<br/>
               </div>
             </Typography>
           </div>
@@ -70,14 +75,6 @@ export default () => {
               <ChannelIcon css={styles.icon} />
               <Typography color="textPrimary">
                 Create channels
-              </Typography>
-            </div>
-          </Grid>
-          <Grid item xs>
-            <div css={styles.card}>
-              <FriendsIcon css={styles.icon} />
-              <Typography color="textPrimary">
-                Invite friends
               </Typography>
             </div>
           </Grid>

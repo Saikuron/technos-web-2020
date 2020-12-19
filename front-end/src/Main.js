@@ -10,6 +10,7 @@ import Context from './Context'
 import Channels from './Channels'
 import Channel from './Channel'
 import Welcome from './Welcome'
+import Friends from './Friends'
 import Account from './Account'
 import {
   Route,

@@ -9,6 +9,8 @@ import Context from './Context'
 import {useHistory} from 'react-router-dom'
 import SendIcon from "@material-ui/icons/Send"
 import Button from "@material-ui/core/Button"
+import Switch from '@material-ui/core/Switch'
+import { View } from 'react';
 
 const styles = {
    root: {
@@ -24,6 +26,10 @@ const styles = {
     width: '70%',
     textAlign: 'left'
   },
+  switch: {
+    flex: 1,
+    flexDirection: 'column-reverse',
+  }
 }
 
 export default () => {
@@ -49,14 +55,25 @@ export default () => {
   }, [oauth, setChannels])
   return (
     <ul style={styles.root}>
+      <Button
+        variant="contained"
+        css={styles.send}
+        href={`/`}
+      >
+        <Link>
+          HOME
+        </Link>
+      </Button>
+      <br/><br/>
       { channels.map( (channel, i) => (
         <li key={i}>
+        <br/>
           <Button
             variant="contained"
             css={styles.send}
+            href={`/channels/${channel.id}`}
           >
             <Link
-              href={`/channels/${channel.id}`}
               onClick={ (e) => {
                 e.preventDefault()
                 history.push(`/channels/${channel.id}`)
@@ -64,17 +81,10 @@ export default () => {
             >
               • {channel.name}
             </Link>
-          </Button> <br/><br/>
+          </Button>
         </li>
       ))}
-      <Button
-        variant="contained"
-        css={styles.send}
-      >
-        <Link
-          href={`/`}>• HOME
-        </Link>
-      </Button>
+    <br/><br/> Online Status <Switch />
     </ul>
   );
 }
