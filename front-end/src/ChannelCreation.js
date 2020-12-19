@@ -2,6 +2,7 @@
 import { jsx } from '@emotion/core';
 import { useState, useContext } from 'react';
 import Context from './Context'
+import UsersList from './UsersList'
 import axios from 'axios';
 
 // import { useTheme } from '@material-ui/core/styles';
@@ -31,6 +32,8 @@ import Button from '@material-ui/core/Button';
 function ChannelCreation({fetchChannels}) {
     // const styles = useStyles(useTheme())
     const [nameContent, setNameContent] = useState('');
+    const [checked, setChecked] = useState([]); 
+
     const {
         oauth
         // , setOauth, drawerVisible, setDrawerVisible
@@ -39,11 +42,18 @@ function ChannelCreation({fetchChannels}) {
         if(!nameContent) return;
         // const { data: channel } = 
         console.log(oauth.email)
+        console.log(checked)
+        const usersToAdd = checked.map( (userToAdd) => {
+            return {email: userToAdd.email}
+        })
+        usersToAdd.push({email: oauth.email})
+        console.log(usersToAdd)
         await axios.post(
           `http://localhost:3001/channels`
           , {
             name: nameContent,
-            users: [{email:oauth.email}]
+            users: usersToAdd
+            // users: [{email:oauth.email}]
         })
         fetchChannels()
         setNameContent('')
@@ -63,6 +73,7 @@ function ChannelCreation({fetchChannels}) {
                     value={nameContent}
                     onChange={handleChange} 
                 />
+                <UsersList checked={checked} setChecked={setChecked} ></UsersList>
                 <Button variant="contained" onClick={onSubmit}>
                     Create Channel
                 </Button>
