@@ -1,4 +1,7 @@
-import {forwardRef, useImperativeHandle, useLayoutEffect, useRef} from 'react'
+import {forwardRef, useImperativeHandle, useLayoutEffect, useRef, useContext} from 'react'
+import Context from '../Context'
+import Gravatar from 'react-gravatar'
+import axios from 'axios'
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 // Layout
@@ -8,6 +11,10 @@ import unified from 'unified'
 import markdown from 'remark-parse'
 import remark2rehype from 'remark-rehype'
 import html from 'rehype-stringify'
+//Icons
+import EditIcon from '@material-ui/icons/Edit';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 // Time
 import dayjs from 'dayjs'
 import calendar from 'dayjs/plugin/calendar'
@@ -52,14 +59,19 @@ const useStyles = (theme) => ({
     top: 0,
     width: '50px',
   },
+  icons: {
+    height: '17px'
+  }
 })
 
 export default forwardRef(({
   channel,
   messages,
   onScrollDown,
+  fetchMessages,
 }, ref) => {
   const styles = useStyles(useTheme())
+  const {oauth} = useContext(Context)
   // Expose the `scroll` action
   useImperativeHandle(ref, () => ({
     scroll: scroll
@@ -86,6 +98,8 @@ export default forwardRef(({
     rootNode.addEventListener('scroll', handleScroll)
     return () => rootNode.removeEventListener('scroll', handleScroll)
   })
+  // const deleteMessage = async message => async e => {
+
   return (
     <div css={styles.root} ref={rootEl}>
       <h1>Messages for {channel.name}</h1>
@@ -99,9 +113,28 @@ export default forwardRef(({
             return (
               <li key={i} css={styles.message}>
                 <p>
-                  <span>{message.author}</span>
+                  <Gravatar email={message.authorMail}/>
+                  <span>{message.authorMail}</span>
                   {' - '}
-                  <span>{dayjs().calendar(message.creation)}</span>
+                  <span>{dayjs().calendar(message.creation)} </span>
+                  { message.authorMail === oauth.email ? 
+                    <span>
+                      <IconButton onClick={async (e) => {
+                        e.preventDefault()
+                        // Active un textField plus bas avec un bouton, qui modifiera le message
+                      }}>
+                        <EditIcon/>
+                      </IconButton>
+                      <IconButton aria-label="delete" messagecreation={message.creation} onClick={async (e) => {
+                        e.preventDefault()
+                        await axios.delete(`http://localhost:3001/channels/${channel.id}/messages/${message.creation}`)
+                        await fetchMessages()
+                      }}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </span>
+                    : ''
+                  }
                 </p>
                 <div dangerouslySetInnerHTML={{__html: content}}>
                 </div>

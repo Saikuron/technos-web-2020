@@ -50,11 +50,11 @@ module.exports = {
   messages: {
     create: async (channelId, message) => {
       if(!channelId) throw Error('Invalid channel')
-      if(!message.author) throw Error('Invalid message')
+      if(!message.authorMail) throw Error('Invalid message')
       if(!message.content) throw Error('Invalid message')
       creation = microtime.now()
       await db.put(`messages:${channelId}:${creation}`, JSON.stringify({
-        author: message.author,
+        authorMail: message.authorMail,
         content: message.content
       }))
       return merge(message, {channelId: channelId, creation: creation})
@@ -77,6 +77,14 @@ module.exports = {
           resolve(messages)
         })
       })
+    },
+    delete: async (channelId, messageCreation) => {
+      await db.del(`messages:${channelId}:${messageCreation}`, function (err) {
+        if (err)
+          console.log(err)
+      });
+      // const original = store.channels[channelId].messages[messageCreation]
+      // console.log(original)
     },
   },
   users: {

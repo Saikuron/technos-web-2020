@@ -13,6 +13,8 @@ export const Provider = ({
   const [oauth, setOauth] = useState(cookies.oauth)
   const [drawerVisible, setDrawerVisible] = useState(false)
   const [channels, setChannels] = useState([])
+  const [messages, setMessages] = useState([])
+  const [users, setUsers] = useState([])
   const [currentChannel, setCurrentChannel] = useState(null)
   return (
     <Context.Provider value={{
@@ -25,6 +27,7 @@ export const Provider = ({
             ).toString('utf-8')
           )
           oauth.email = payload.email
+          oauth.username = oauth.email.split('@')[0];
           setCookie('oauth', oauth)
         }else{
           setCurrentChannel(null)
@@ -33,10 +36,14 @@ export const Provider = ({
         }
         setOauth(oauth)
       },
-      channels: channels,
       drawerVisible: drawerVisible,
       setDrawerVisible: setDrawerVisible,
+      users: users,
+      setUsers: setUsers,
+      channels: channels,
       setChannels: setChannels,
+      messages: messages,
+      setMessages: setMessages,
       currentChannel: currentChannel,
       setCurrentChannel: (channelId) => {
         const channel = channels.find( channel => channel.id === channelId)

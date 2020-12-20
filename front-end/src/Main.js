@@ -1,4 +1,5 @@
-import {useContext} from 'react'
+import {useContext, useEffect, useCallback} from 'react'
+import axios from 'axios'
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 // Layout
@@ -8,10 +9,9 @@ import Drawer from '@material-ui/core/Drawer';
 // Local
 import Context from './Context'
 import Channels from './Channels'
+import ChannelCreation from './ChannelCreation'
 import Channel from './Channel'
 import Welcome from './Welcome'
-import Friends from './Friends'
-import Account from './Account'
 import {
   Route,
   Switch,
@@ -37,13 +37,60 @@ const useStyles = (theme) => ({
 
 export default () => {
   const {
-    currentChannel,
+    // currentChannel,
     drawerVisible,
   } = useContext(Context)
   const theme = useTheme()
   const styles = useStyles(theme)
   const alwaysOpen = useMediaQuery(theme.breakpoints.up('sm'))
   const isDrawerVisible = alwaysOpen || drawerVisible
+  const {
+    oauth,
+    channels, setChannels
+  } = useContext(Context)
+  const fetch = useCallback( async () => {
+    try {
+      const { data: channels } = await axios.get('http://localhost:3001/channels', {
+        headers: {
+          'Authorization': `Bearer ${oauth.access_token}`
+        }
+      })
+      let channelsFiltered = []
+      channels.forEach( (channel) => {
+        if(channel.users && channel.users.some( user => user.email === oauth.email )) {
+          channelsFiltered.push(channel)
+        }
+      })
+      setChannels(channelsFiltered)
+    } catch (err) {
+      console.error(err)
+    }
+    checkUserInDB(oauth)
+  },[oauth, setChannels])
+  useEffect(() => {
+    fetch()
+  }, [oauth, setChannels, fetch])
+  const fetchChannels = async () => {
+    fetch()
+  }
+
+  const checkUserInDB = async (userData) => {
+    // If we get the user from the db and no return, create user
+    const { data: users } = await axios.get('http://localhost:3001/users')
+    let userExists = false;
+    if( users.some( user => user.email === userData.email )) {
+      // Create a new one
+      userExists = true;
+    }
+    if (!userExists) {
+      await axios.post('http://localhost:3001/users', {
+        username: userData.username,
+        email: userData.email,
+      })
+    }
+  }
+  
+
   return (
     <main css={styles.root}>
       <Drawer
@@ -56,11 +103,14 @@ export default () => {
         open={isDrawerVisible}
         css={[styles.drawer, isDrawerVisible && styles.drawerVisible]}
       >
-        <Channels />
+        <Channels channels={channels}/>
       </Drawer>
       <Switch>
+        <Route path="/channels/new">
+          <ChannelCreation fetchChannels={fetchChannels}/>
+        </Route>
         <Route path="/channels/:id">
-          <Channel />
+          <Channel/>
         </Route>
         <Route path="/">
           <Welcome />

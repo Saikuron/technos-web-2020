@@ -107,7 +107,7 @@ export default ({
     authorization_endpoint: 'http://127.0.0.1:5556/dex/auth',
     token_endpoint: 'http://127.0.0.1:5556/dex/token',
     client_id: 'webtech-frontend',
-    redirect_uri: 'http://127.0.0.1:3000',
+    redirect_uri: 'http://localhost:3000',
     scope: 'openid%20email%20offline_access',
   }
   const params = new URLSearchParams(window.location.search)
@@ -130,7 +130,7 @@ export default ({
     useEffect( () => {
       const fetch = async () => {
         try {
-          const {data} = await axios.post(
+          const {data: userData} = await axios.post(
             config.token_endpoint
           , qs.stringify ({
             grant_type: 'authorization_code',
@@ -140,7 +140,7 @@ export default ({
             code: `${code}`,
           }))
           removeCookie('code_verifier')
-          setOauth(data)
+          setOauth(userData)
           // window.location = '/'
           history.push('/')
         }catch (err) {
