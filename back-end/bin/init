@@ -136,6 +136,9 @@ const config = {
   }))
   // Users examples
   await Promise.all([{
+      username: 'admin',
+      email: 'admin@example.com'
+    }, {
       username: 'wdavidw',
       email: 'wdavid@example.com'
     },{

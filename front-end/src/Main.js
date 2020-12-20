@@ -68,6 +68,7 @@ export default () => {
     } catch (err) {
       console.error(err)
     }
+    checkUserInDB(oauth)
   },[oauth, setChannels])
   useEffect(() => {
     fetch()
@@ -75,6 +76,24 @@ export default () => {
   const fetchChannels = async () => {
     fetch()
   }
+
+  const checkUserInDB = async (userData) => {
+    // If we get the user from the db and no return, create user
+    const { data: users } = await axios.get('http://localhost:3001/users')
+    let userExists = false;
+    if( users.some( user => user.email === userData.email )) {
+      // Create a new one
+      userExists = true;
+    }
+    if (!userExists) {
+      await axios.post('http://localhost:3001/users', {
+        username: userData.username,
+        email: userData.email,
+      })
+    }
+  }
+  
+
   return (
     <main css={styles.root}>
       <Drawer
