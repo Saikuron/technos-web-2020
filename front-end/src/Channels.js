@@ -8,6 +8,7 @@ import { useHistory } from 'react-router-dom'
 import { IconButton } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import HomeIcon from '@material-ui/icons/Home';
+import SettingsIcon from '@material-ui/icons/Settings';
 import Button from "@material-ui/core/Button"
 import Switch from '@material-ui/core/Switch'
 
@@ -55,6 +56,19 @@ export default ({channels}) => {
           HOME
       </Button>
       <br/><br/>
+      <Button
+        variant="contained"
+        color="primary"
+        startIcon={<SettingsIcon/>}
+        css={styles.send}
+        onClick={ (e) => {
+          e.preventDefault()
+          history.push('/settings')
+        }}
+      >
+          SETTINGS
+      </Button>
+      <br/><br/><br/>
       { channels.map( (channel, i) => (
         <li key={i}>
         <br/>

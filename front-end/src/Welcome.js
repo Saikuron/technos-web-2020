@@ -1,6 +1,7 @@
 import {} from 'react';
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
+import { useHistory } from 'react-router-dom'
 // Layout
 import { useTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
@@ -8,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import {ReactComponent as ChannelIcon} from './icons/channel.svg';
 import {ReactComponent as SettingsIcon} from './icons/settings.svg';
 import {ReactComponent as StarIcon} from './icons/star.svg';
+import Link from '@material-ui/core/Link';
 
 const useStyles = (theme) => ({
   root: {
@@ -32,11 +34,12 @@ const useStyles = (theme) => ({
 
 export default () => {
   const styles = useStyles(useTheme())
-  // const addFriends = (e) => {
-  //   e.preventDefault();
-  //   // setFormChannel(true);
-  //   //history.push(`/friends`);
-  // }
+  const history = useHistory();
+  const addChannel = (e) => {
+    e.preventDefault();
+    // setFormChannel(true);
+    history.push(`/channels/new`);
+  }
   return (
     <div css={styles.root}>
       <Grid
@@ -66,7 +69,7 @@ export default () => {
         </Grid>
       </Grid>
           <Grid item xs>
-            <div css={styles.card}>
+            <div css={styles.card} onClick={addChannel}>
               <ChannelIcon css={styles.icon} />
               <Typography color="textPrimary">
                 Create channels
@@ -74,12 +77,14 @@ export default () => {
             </div>
           </Grid>
           <Grid item xs>
-            <div css={styles.card}>
-              <SettingsIcon css={styles.icon} />
-              <Typography color="textPrimary">
-                Settings
-              </Typography>
-            </div>
+            <Link href={`/settings`}>
+              <div css={styles.card}>
+                <SettingsIcon css={styles.icon} />
+                <Typography color="textPrimary">
+                  Settings
+                </Typography>
+              </div>
+            </Link>
           </Grid>
           <Grid item xs>
             <div css={styles.card}>

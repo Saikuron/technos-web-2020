@@ -12,6 +12,8 @@ import Channels from './Channels'
 import ChannelCreation from './ChannelCreation'
 import Channel from './Channel'
 import Welcome from './Welcome'
+import Account from './Account'
+import Settings from './Settings'
 import {
   Route,
   Switch,
@@ -114,6 +116,12 @@ export default () => {
         </Route>
         <Route path="/">
           <Welcome />
+        </Route>
+        <Route path="/settings">
+          <Settings />
+        </Route>
+        <Route path="/account">
+          <Account />
         </Route>
       </Switch>
     </main>
