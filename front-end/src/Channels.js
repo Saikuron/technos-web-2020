@@ -2,13 +2,10 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import { useHistory } from 'react-router-dom'
-import { IconButton } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
 import HomeIcon from '@material-ui/icons/Home';
 import SettingsIcon from '@material-ui/icons/Settings';
 import Button from '@material-ui/core/Button'
-import Switch from '@material-ui/core/Switch'
 import AddIcon from '@material-ui/icons/Add';
 
 const useStyles = (theme) => ({

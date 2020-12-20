@@ -10,7 +10,6 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Switch from '@material-ui/core/Switch'
-import Channels from './Channels'
 import Zoom from '@material-ui/core/Zoom';
 import Fab from '@material-ui/core/Fab';
 import HomeIcon from '@material-ui/icons/Home';
@@ -108,14 +107,14 @@ export default function FloatingActionButtonZoom() {
   }
 
   const {
-    oauth, setOauth,
-    drawerVisible, setDrawerVisible
+    oauth, setOauth
   } = useContext(Context)
 
   const onClickLogout = (e) => {
     e.stopPropagation()
     setOauth(null)
     history.push('/')
+    setOpen(false)
   }
 
   const transitionDuration = {
@@ -248,8 +247,8 @@ export default function FloatingActionButtonZoom() {
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           <br/>
-          <img src={Jean} height='300px' />
-          <img src={Lucas} height='300px' /><br/>
+          <img src={Jean} height='300px' alt="Beautiful photograph of Jean"/>
+          <img src={Lucas} height='300px' alt="Beautiful photograph of Lucas"/><br/>
           We are Jean & Lucas, students in IS at ECE Paris<br/>
           <FormControlLabel
             control={<Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} name="checkedH" />}
@@ -319,7 +318,7 @@ export default function FloatingActionButtonZoom() {
               </DialogContentText>
             </DialogContent>
             <DialogActions>
-              <Button onClick={handleClose, onClickLogout} color="secondary">
+              <Button onClick={onClickLogout} color="secondary">
                 Confirm logging out
               </Button>
             </DialogActions>

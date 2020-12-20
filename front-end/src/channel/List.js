@@ -17,7 +17,6 @@ import { useState } from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 //Icons
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
@@ -114,12 +113,11 @@ export default forwardRef(({
     <div css={styles.root} ref={rootEl}>
       <h1>Messages for {channel.name}</h1>
       <FormControl variant="filled">
-        <InputLabel id="demo-simple-select-filled-label">Ajouter des participants</InputLabel>
+        <InputLabel id="demo-simple-select-filled-label">Add some friends</InputLabel>
         <Select
           style={{width:'300px'}}
         >
-          
-      <UsersList checked={checked} setChecked={setChecked} ></UsersList>
+          <UsersList checked={checked} setChecked={setChecked} ></UsersList>
         </Select>
       </FormControl>
       <ul>

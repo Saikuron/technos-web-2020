@@ -9,7 +9,6 @@ import Typography from '@material-ui/core/Typography';
 import {ReactComponent as ChannelIcon} from './icons/channel.svg';
 import {ReactComponent as SettingsIcon} from './icons/settings.svg';
 import {ReactComponent as StarIcon} from './icons/star.svg';
-import Link from '@material-ui/core/Link';
 
 const useStyles = (theme) => ({
   root: {
