@@ -302,7 +302,7 @@ export default function FloatingActionButtonZoom() {
           </FormControl>
         </TabPanel>
         <TabPanel value={value} index={3} dir={theme.direction}>
-          <Button variant="outlined" color="secondary" onClick={handleClickOpen}>
+          <Button variant="outlined" color="secondary" onClick={handleClickOpen} style={{width: '60%', textAlign: 'center', height:'200px'}}> 
             Click to log out
           </Button>
           <Dialog
