@@ -1,6 +1,6 @@
 import {forwardRef, useImperativeHandle, useLayoutEffect, useRef, useContext} from 'react'
 import Context from '../Context'
-import {forwardRef, useImperativeHandle, useLayoutEffect, useRef} from 'react'
+import Gravatar from 'react-gravatar'
 import axios from 'axios'
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
@@ -113,6 +113,7 @@ export default forwardRef(({
             return (
               <li key={i} css={styles.message}>
                 <p>
+                  <Gravatar email={message.authorMail}/>
                   <span>{message.authorMail}</span>
                   {' - '}
                   <span>{dayjs().calendar(message.creation)} </span>
