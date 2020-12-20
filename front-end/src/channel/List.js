@@ -1,4 +1,7 @@
+import {forwardRef, useImperativeHandle, useLayoutEffect, useRef, useContext} from 'react'
+import Context from '../Context'
 import {forwardRef, useImperativeHandle, useLayoutEffect, useRef} from 'react'
+import axios from 'axios'
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 // Layout
@@ -9,8 +12,9 @@ import markdown from 'remark-parse'
 import remark2rehype from 'remark-rehype'
 import html from 'rehype-stringify'
 //Icons
-import {ReactComponent as EditIcon} from '../icons/edit.svg';
-import {ReactComponent as TrashIcon} from '../icons/trash.svg';
+import EditIcon from '@material-ui/icons/Edit';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 // Time
 import dayjs from 'dayjs'
 import calendar from 'dayjs/plugin/calendar'
@@ -94,6 +98,8 @@ export default forwardRef(({
     rootNode.addEventListener('scroll', handleScroll)
     return () => rootNode.removeEventListener('scroll', handleScroll)
   })
+  // const deleteMessage = async message => async e => {
+
   return (
     <div css={styles.root} ref={rootEl}>
       <h1>Messages for {channel.name}</h1>
