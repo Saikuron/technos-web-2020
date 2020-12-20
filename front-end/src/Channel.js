@@ -34,7 +34,7 @@ const useStyles = (theme) => ({
 export default () => {
   //const history = useHistory()
   const { id } = useParams()
-  const {channels, messages, setMessages} = useContext(Context)
+  const {oauth, channels} = useContext(Context)
   const channel = channels.find( channel => channel.id === id)
   if(!channel) {
     //history.push('/oups')
@@ -43,25 +43,26 @@ export default () => {
   const styles = useStyles(useTheme())
   const listRef = useRef()
   const channelId = useRef()
-  // const [messages, setMessages] = useState([]) 
+  const [messages, setMessages] = useState([]) 
   const [scrollDown, setScrollDown] = useState(false)
-  const fetchMessages = useCallback( async () => {
+  const fetchMessages = async () => {
     setMessages([])
-    const {data: messages} = await axios.get(`http://localhost:3001/channels/${channel.id}/messages`)
+    const {data: messages} = await axios.get(`http://localhost:3001/channels/${channel.id}/messages`, {
+      headers: {
+        'Authorization': `Bearer ${oauth.access_token}`
+      }
+    })
     setMessages(messages)
     if(listRef.current){
       listRef.current.scroll()
     }
-  }, [channel.id, setMessages])
+  }
   const addMessage = (message) => {
     fetchMessages()
   }
   const onScrollDown = (scrollDown) => {
     setScrollDown(scrollDown)
   }
-  useEffect(() => {
-    fetchMessages()
-  },[fetchMessages, setMessages, channel.id])
   if(channelId.current !== channel.id){
     fetchMessages()
     channelId.current = channel.id
@@ -77,6 +78,7 @@ export default () => {
         onScrollDown={onScrollDown}
         fetchMessages={fetchMessages}
         ref={listRef}
+        fetchMessages={fetchMessages}
       />
       <Form addMessage={addMessage} channel={channel} />
       <Fab

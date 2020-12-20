@@ -18,8 +18,7 @@ module.exports = ({jwks_uri} = {}) => {
     throw Error('Invalid Settings: jwks_uri is required')
   }
   return async (req, res, next) => {
-    if( process.env.NODE_ENV === 'test' )
-    {
+    if( process.env.NODE_ENV === 'test' || process.env.NODE_STEP === 'init' ) {
       next()
       return
     }

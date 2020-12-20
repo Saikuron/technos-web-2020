@@ -7,6 +7,7 @@ const config = {
 };
 
 (async function() {
+  process.env.NODE_STEP = 'init'
   await app.listen(config.port);
   await Promise.all([{
     name: 'Channel 1',
@@ -111,6 +112,8 @@ const config = {
     name: 'Channel 3',
     users: [{
       email: 'admin@example.com'
+    }, { 
+      email: 'jeand@example.com'
     }],
     messages: [{
       authorMail: 'ksergei@example.com',
@@ -127,11 +130,18 @@ const config = {
     }]
   }].map( async (channel) => {
     const {data: {id}} = await axios.post(`http://localhost:${config.port}/channels`, {
-      name: channel.name,
-      users: channel.users
+      data: {
+        name: channel.name,
+        users: channel.users
+      }
     })
     return Promise.all( channel.messages.map( async (message) => {
-      await axios.post(`http://localhost:${config.port}/channels/${id}/messages`, message)
+      await axios.post(`http://localhost:${config.port}/channels/${id}/messages`, {
+          data: {
+          authorMail: message.authorMail,
+          content: message.content
+        }}
+      )
     }))
   }))
   // Users examples
@@ -150,9 +160,11 @@ const config = {
   }].map( async (user) => {
     // const {data: {id}} = 
     await axios.post(`http://localhost:${config.port}/users`, {
-      username: user.username,
-      email: user.email,
-    })
+      data :{
+        username: user.username,
+        email: user.email,
+    }})
   }))
+  process.env.NODE_STEP = ''
   process.exit()
 })();

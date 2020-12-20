@@ -19,7 +19,7 @@ module.exports = {
       const channel = JSON.parse(data)
       return merge(channel, {id: id})
     },
-    list: async () => {
+    list: async (req) => {
       return new Promise( (resolve, reject) => {
         const channels = []
         db.createReadStream({
@@ -28,7 +28,10 @@ module.exports = {
         }).on( 'data', ({key, value}) => {
           channel = JSON.parse(value)
           channel.id = key.split(':')[1]
-          channels.push(channel)
+          // Send the channel only if the users is invited in it
+          if(req.headers['email'] !== undefined && channel.users.some( user => user.email === req.headers['email']) ){
+            channels.push(channel)
+          }
         }).on( 'error', (err) => {
           reject(err)
         }).on( 'end', () => {
@@ -83,6 +86,7 @@ module.exports = {
         if (err)
           console.log(err)
       });
+      return
       // const original = store.channels[channelId].messages[messageCreation]
       // console.log(original)
     },

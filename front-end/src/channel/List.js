@@ -2,6 +2,7 @@ import {forwardRef, useImperativeHandle, useLayoutEffect, useRef, useContext} fr
 import Context from '../Context'
 import Gravatar from 'react-gravatar'
 import axios from 'axios'
+// import {useHistory} from 'react-router-dom'
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 import UsersList from '../UsersList'
@@ -79,6 +80,7 @@ export default forwardRef(({
 }, ref) => {
   const styles = useStyles(useTheme())
   const {oauth} = useContext(Context)
+  // const history = useHistory();
   // Expose the `scroll` action
   useImperativeHandle(ref, () => ({
     scroll: scroll
@@ -145,8 +147,15 @@ export default forwardRef(({
                         </IconButton>
                         <IconButton aria-label="delete" messagecreation={message.creation} onClick={async (e) => {
                           e.preventDefault()
-                          await axios.delete(`http://localhost:3001/channels/${channel.id}/messages/${message.creation}`)
-                          await fetchMessages()
+                          axios.delete(`http://localhost:3001/channels/${channel.id}/messages/${message.creation}`,{
+                          headers: {
+                            'Authorization': `Bearer ${oauth.access_token}`
+                          }
+                        })
+                        fetchMessages()
+                        alert("The message won't appear after reloading")
+                        // window.location.reload()
+                        // history.push(`/channels/${channel.id}`)
                         }}>
                           <DeleteIcon />
                         </IconButton>

@@ -43,18 +43,23 @@ function ChannelCreation({fetchChannels}) {
     const onSubmit = async () => {
         if(!nameContent) return;
         // const { data: channel } = 
-        console.log(oauth.email)
-        console.log(checked)
+        // console.log(oauth.email)
+        // console.log(checked)
         const usersToAdd = checked.map( (userToAdd) => {
             return {email: userToAdd.email}
         })
         usersToAdd.push({email: oauth.email})
-        console.log(usersToAdd)
+        // console.log(usersToAdd)
         await axios.post(
           `http://localhost:3001/channels`
           , {
+        data: {
             name: nameContent,
             users: usersToAdd
+        }},{
+        headers: {
+            'Authorization': `Bearer ${oauth.access_token}`
+        }
             // users: [{email:oauth.email}]
         })
         fetchChannels()

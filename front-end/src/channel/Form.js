@@ -44,8 +44,13 @@ export default ({
     const {data: message} = await axios.post(
       `http://localhost:3001/channels/${channel.id}/messages`
     , {
+      data: {
       content: content,
       authorMail: oauth.email,
+    }}, {
+      headers: {
+        'Authorization': `Bearer ${oauth.access_token}`
+      }
     })
     addMessage(message)
     setContent('')
