@@ -8,7 +8,7 @@ It is basically a chat application like messenger or whatsapp. You'll have the p
 
 * Clone this repository, from your local machine:
   ```
-  https://github.com/Saikuron/technos-web-2020.git
+  git clone https://github.com/Saikuron/technos-web-2020.git
   ```
 * Install [Go](https://golang.org/) and [Dex](https://dexidp.io/docs/getting-started/). For example, on Ubuntu, from your project root directory:   
   ```
@@ -54,6 +54,9 @@ It is basically a chat application like messenger or whatsapp. You'll have the p
   #Launch the start script that will launch dex, init and start the back-end, and start the front-end
   start
   ```
+* You can now navigate through our chat application at [http://localhost:3000](http://localhost:3000)
+* Connect using your github account or your email address
+* Enjoy !
 
 ## Authors
 
@@ -69,16 +72,18 @@ Project management
 * Project structure   
   *place your comments*
 * Code quality   
-  *place your comments*
+  *We really wanted to have a code as easy-to-read and to-understand as possible. We focused on the indentation, the naming convention and the clarity of ou code*
 * Design, UX   
-  *We decided to keep a simple yet elegant design, based on a primary blue color and a secondary red color. We used a lot of icons in order to keep a friendly application*
+  *We decided to keep a simple yet elegant design, based on a primary blue color and a secondary red color. We used a lot of [Material UI](https://material-ui.com/getting-started/installation/) Components in order to keep a friendly, elegant and functionnal application*
 * Git and DevOps   
-  *place your comments*
+  *We used Git a lot, made several branches in order to work as efficiently as possible on the project. We had no troubles using git and it was very helpful to both of us for working togheter properly*
 
 Application development
 
 * Welcome screens   
   *You will find on the welcome page a friendly message that will explain to you what you can do in the app. You will see that you can add a channel, go to your settings page, or directly go for your favorite channel*
+  *Special mention for [Adaltas](https://www.adaltas.com) for their welcome page background image*
+  *You will also see on the left side a [Drawer](https://material-ui.com/components/drawers/) which you will use to navigate through the app.*
 * New channel creation   
   *place your comments*
 * Channel membership and access   
@@ -92,7 +97,7 @@ Application development
 * Message removal   
   *place your comments*
 * Account settings   
-  *At `localhost:3000/settings`, you will have the possibility to change informations about your account, like your name, your e-mail adress, the theme of the application, your favorite channel. You will also have the possibility to contact us, to log out, or to know a little bit about us, the authors. We've used a lot of [Material UI](https://material-ui.com/getting-started/installation/) Components to make our app as friendly and as easy-to-use as possible*
+  *At [http://localhost:3000/settings](http://localhost:3000/settings), you will have the possibility to change informations about your account, like your name, your e-mail adress, the theme of the application, your favorite channel. You will also have the possibility to contact us, to log out, or to know a little bit about us, the authors. We've used a lot of [Material UI](https://material-ui.com/getting-started/installation/) Components to make our app as friendly and as easy-to-use as possible. You will see a lot of home buttons so that you will be able to get back to the welcoming homepage without any trouble.*
 * Gravatar integration   
   *place your comments*
 * Avatar selection   
