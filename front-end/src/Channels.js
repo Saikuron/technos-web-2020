@@ -7,6 +7,7 @@ import Link from '@material-ui/core/Link'
 import { useHistory } from 'react-router-dom'
 import { IconButton } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
+import HomeIcon from '@material-ui/icons/Home';
 import Context from './Context'
 import SendIcon from "@material-ui/icons/Send"
 import Button from "@material-ui/core/Button"
@@ -15,7 +16,7 @@ import { View } from 'react';
 
 const styles = {
    root: {
-     minWidth: '200px',
+    //  minWidth: '200px',
      paddingTop: '20px',
      textAlign: 'left',
    },
@@ -24,8 +25,8 @@ const styles = {
     whiteSpace: 'nowrap', 
   },
   send: {
-    width: '70%',
-    textAlign: 'left'
+    width: '100%',
+    // textAlign: 'left'
   },
   switch: {
     flex: 1,
@@ -46,12 +47,15 @@ export default ({channels}) => {
     <ul style={styles.root}>
       <Button
         variant="contained"
+        color="primary"
+        startIcon={<HomeIcon/>}
         css={styles.send}
-        href={`/`}
+        onClick={ (e) => {
+          e.preventDefault()
+          history.push('/channels')
+        }}
       >
-        <Link>
           HOME
-        </Link>
       </Button>
       <br/><br/>
       { channels.map( (channel, i) => (
@@ -60,16 +64,12 @@ export default ({channels}) => {
           <Button
             variant="contained"
             css={styles.send}
-            href={`/channels/${channel.id}`}
+            onClick={ (e) => {
+              e.preventDefault()
+              history.push(`/channels/${channel.id}`)
+            }}
           >
-            <Link
-              onClick={ (e) => {
-                e.preventDefault()
-                history.push(`/channels/${channel.id}`)
-              }}
-            >
-              • {channel.name}
-            </Link>
+              {channel.name}
           </Button>
         </li>
       ))}
