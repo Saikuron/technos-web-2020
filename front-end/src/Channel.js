@@ -34,7 +34,7 @@ const useStyles = (theme) => ({
 export default () => {
   const history = useHistory()
   const { id } = useParams()
-  const {channels, messages, setMessages} = useContext(Context)
+  const {oauth, channels, messages, setMessages} = useContext(Context)
   const channel = channels.find( channel => channel.id === id)
   if(!channel) {
     history.push('/oups')

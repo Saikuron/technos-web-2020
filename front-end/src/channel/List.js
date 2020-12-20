@@ -7,9 +7,6 @@ import axios from 'axios'
 import { jsx } from '@emotion/core'
 // Layout
 import { useTheme } from '@material-ui/core/styles';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteIcon from '@material-ui/icons/Delete';
-import EditIcon from '@material-ui/icons/Edit';
 // Markdown
 import unified from 'unified'
 import markdown from 'remark-parse'
@@ -132,7 +129,11 @@ export default forwardRef(({
                       </IconButton>
                       <IconButton aria-label="delete" messagecreation={message.creation} onClick={async (e) => {
                         e.preventDefault()
-                        axios.delete(`http://localhost:3001/channels/${channel.id}/messages/${message.creation}`)
+                        axios.delete(`http://localhost:3001/channels/${channel.id}/messages/${message.creation}`,{
+                          headers: {
+                            'Authorization': `Bearer ${oauth.access_token}`
+                          }
+                        })
                         fetchMessages()
                         alert("The message won't appear after reloading")
                         // window.location.reload()
