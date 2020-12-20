@@ -55,7 +55,7 @@ export default () => {
           <h1 color="textPrimary" css={styles.txt}>
               Welcome to our chat application !<br/><br/>
               On the left side there are the channels (you can only access the ones you are in)<br/>
-              Down there are some stuffs you are free to try (settings, account...)<br/>
+              Down there are some stuffs you are free to try (settings, channel creation...)<br/>
               <br/>
               Enjoy !<br/>
           </h1>
