@@ -1,6 +1,7 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core';
 import { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom'
 import Context from './Context'
 import UsersList from './UsersList'
 import axios from 'axios';
@@ -33,6 +34,7 @@ function ChannelCreation({fetchChannels}) {
     // const styles = useStyles(useTheme())
     const [nameContent, setNameContent] = useState('');
     const [checked, setChecked] = useState([]); 
+    const history = useHistory();
 
     const {
         oauth
@@ -79,8 +81,14 @@ function ChannelCreation({fetchChannels}) {
                     onChange={handleChange} 
                 />
                 <UsersList checked={checked} setChecked={setChecked} ></UsersList>
-                <Button variant="contained" onClick={onSubmit}>
+                <Button variant="contained" color="primary" onClick={onSubmit}>
                     Create Channel
+                </Button>
+                <Button variant="contained" color="secondary" onClick={(e) => {
+                    e.preventDefault()
+                    history.push('/channels')
+                }}>
+                    Cancel
                 </Button>
             </form>
         </div>

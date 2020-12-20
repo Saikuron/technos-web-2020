@@ -2,17 +2,14 @@
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 // Layout
-import Link from '@material-ui/core/Link'
+// import Link from '@material-ui/core/Link'
 // Local
 import { useHistory } from 'react-router-dom'
 import { IconButton } from '@material-ui/core';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import HomeIcon from '@material-ui/icons/Home';
-import Context from './Context'
-import SendIcon from "@material-ui/icons/Send"
 import Button from "@material-ui/core/Button"
 import Switch from '@material-ui/core/Switch'
-import { View } from 'react';
 
 const styles = {
    root: {

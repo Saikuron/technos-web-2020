@@ -53,11 +53,11 @@ module.exports = {
   messages: {
     create: async (channelId, message) => {
       if(!channelId) throw Error('Invalid channel')
-      if(!message.author) throw Error('Invalid message')
+      if(!message.authorMail) throw Error('Invalid message')
       if(!message.content) throw Error('Invalid message')
       creation = microtime.now()
       await db.put(`messages:${channelId}:${creation}`, JSON.stringify({
-        author: message.author,
+        authorMail: message.authorMail,
         content: message.content
       }))
       return merge(message, {channelId: channelId, creation: creation})

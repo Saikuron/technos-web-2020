@@ -4,11 +4,8 @@ import { jsx } from '@emotion/core'
 // Layout
 import { useTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
 import {ReactComponent as ChannelIcon} from './icons/channel.svg';
-import {ReactComponent as FriendsIcon} from './icons/friends.svg';
 import {ReactComponent as SettingsIcon} from './icons/settings.svg';
 import {ReactComponent as StarIcon} from './icons/star.svg';
 
@@ -35,11 +32,11 @@ const useStyles = (theme) => ({
 
 export default () => {
   const styles = useStyles(useTheme())
-  const addFriends = (e) => {
-    e.preventDefault();
-    // setFormChannel(true);
-    //history.push(`/friends`);
-  }
+  // const addFriends = (e) => {
+  //   e.preventDefault();
+  //   // setFormChannel(true);
+  //   //history.push(`/friends`);
+  // }
   return (
     <div css={styles.root}>
       <Grid
@@ -57,15 +54,13 @@ export default () => {
         spacing={5}
       >
         <Grid item xs>
-          <div>
+          <div css={styles.card}>
             <Typography color="textPrimary">
-              <div css={styles.card}>
                 Welcome to our chat application !<br/>
                 On the left side there are the channels (you can only access the ones you are in)<br/>
                 Down there are some stuffs you are free to try (settings, account...)<br/>
                 <br/>
                 Enjoy !<br/>
-              </div>
             </Typography>
           </div>
         </Grid>

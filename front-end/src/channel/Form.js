@@ -46,7 +46,7 @@ export default ({
     , {
       data: {
       content: content,
-      author: oauth.username,
+      authorMail: oauth.email,
     }}, {
       headers: {
         'Authorization': `Bearer ${oauth.access_token}`

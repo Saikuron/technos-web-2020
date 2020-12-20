@@ -142,28 +142,6 @@ export default ({
           removeCookie('code_verifier')
           setOauth(userData)
           // window.location = '/'
-          // If we get the user from the db and no return, create user
-          const { data: users } = await axios.get('http://localhost:3001/users', {
-            headers: {
-              'Authorization': `Bearer ${oauth.access_token}`
-            }
-          })
-          let userExists = false;
-          if( users.some( user => user.email === userData.email )) {
-            // Create a new one
-            userExists = true;
-          }
-          if (!userExists) {
-            await axios.post('http://localhost:3001/users', {
-              data: {
-                username: userData.email,
-                email: userData.email,
-            }}, {
-              headers: {
-                'Authorization': `Bearer ${oauth.access_token}`
-              }
-            })
-          }
           history.push('/')
         }catch (err) {
           console.error(err)

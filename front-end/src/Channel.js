@@ -1,4 +1,4 @@
-import {useContext, useRef, useState} from 'react';
+import {useContext, useRef, useState, useCallback, useEffect} from 'react';
 import axios from 'axios';
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
@@ -34,8 +34,7 @@ const useStyles = (theme) => ({
 export default () => {
   const history = useHistory()
   const { id } = useParams()
-  const {channels, oauth} = useContext(Context)
-  // const {channels, messages, setMessages} = useContext(Context)
+  const {channels, messages, setMessages} = useContext(Context)
   const channel = channels.find( channel => channel.id === id)
   if(!channel) {
     history.push('/oups')
@@ -44,9 +43,9 @@ export default () => {
   const styles = useStyles(useTheme())
   const listRef = useRef()
   const channelId = useRef()
-  const [messages, setMessages] = useState([])
+  // const [messages, setMessages] = useState([]) 
   const [scrollDown, setScrollDown] = useState(false)
-  const fetchMessages = async () => {
+  const fetchMessages = useCallback( async () => {
     setMessages([])
     const {data: messages} = await axios.get(`http://localhost:3001/channels/${channel.id}/messages`, {
       headers: {
@@ -57,20 +56,19 @@ export default () => {
     if(listRef.current){
       listRef.current.scroll()
     }
-  }
-// }, [channel.id, setMessages])
+  }, [channel.id, setMessages])
   const addMessage = (message) => {
     fetchMessages()
   }
-  // useEffect(() => {
-  //   fetchMessages()
-  // },[fetchMessages, setMessages, channel.id])
+  const onScrollDown = (scrollDown) => {
+    setScrollDown(scrollDown)
+  }
+  useEffect(() => {
+    fetchMessages()
+  },[fetchMessages, setMessages, channel.id])
   if(channelId.current !== channel.id){
     fetchMessages()
     channelId.current = channel.id
-  }
-  const onScrollDown = (scrollDown) => {
-    setScrollDown(scrollDown)
   }
   const onClickScroll = () => {
     listRef.current.scroll()
@@ -81,6 +79,7 @@ export default () => {
         channel={channel}
         messages={messages}
         onScrollDown={onScrollDown}
+        fetchMessages={fetchMessages}
         ref={listRef}
         fetchMessages={fetchMessages}
       />

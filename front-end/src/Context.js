@@ -13,6 +13,7 @@ export const Provider = ({
   const [oauth, setOauth] = useState(cookies.oauth)
   const [drawerVisible, setDrawerVisible] = useState(false)
   const [channels, setChannels] = useState([])
+  const [messages, setMessages] = useState([])
   const [users, setUsers] = useState([])
   const [currentChannel, setCurrentChannel] = useState(null)
   return (
@@ -41,6 +42,8 @@ export const Provider = ({
       setUsers: setUsers,
       channels: channels,
       setChannels: setChannels,
+      messages: messages,
+      setMessages: setMessages,
       currentChannel: currentChannel,
       setCurrentChannel: (channelId) => {
         const channel = channels.find( channel => channel.id === channelId)

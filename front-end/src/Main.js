@@ -12,8 +12,6 @@ import Channels from './Channels'
 import ChannelCreation from './ChannelCreation'
 import Channel from './Channel'
 import Welcome from './Welcome'
-import Friends from './Friends'
-import Account from './Account'
 import {
   Route,
   Switch,
@@ -62,6 +60,7 @@ export default () => {
     } catch (err) {
       console.error(err)
     }
+    checkUserInDB(oauth)
   },[oauth, setChannels])
   useEffect(() => {
     fetch()
@@ -69,9 +68,6 @@ export default () => {
   const fetchChannels = async () => {
     fetch()
   }
-<<<<<<< Updated upstream
-=======
-
   const checkUserInDB = async (userData) => {
     // If we get the user from the db and no return, create user
     const { data: users } = await axios.get('http://localhost:3001/users', {
@@ -96,9 +92,6 @@ export default () => {
       })
     }
   }
-  
-
->>>>>>> Stashed changes
   return (
     <main css={styles.root}>
       <Drawer

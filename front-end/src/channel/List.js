@@ -15,6 +15,10 @@ import unified from 'unified'
 import markdown from 'remark-parse'
 import remark2rehype from 'remark-rehype'
 import html from 'rehype-stringify'
+//Icons
+import EditIcon from '@material-ui/icons/Edit';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 // Time
 import dayjs from 'dayjs'
 import calendar from 'dayjs/plugin/calendar'
@@ -59,6 +63,9 @@ const useStyles = (theme) => ({
     top: 0,
     width: '50px',
   },
+  icons: {
+    height: '17px'
+  }
 })
 
 export default forwardRef(({
@@ -96,6 +103,8 @@ export default forwardRef(({
     rootNode.addEventListener('scroll', handleScroll)
     return () => rootNode.removeEventListener('scroll', handleScroll)
   })
+  // const deleteMessage = async message => async e => {
+
   return (
     <div css={styles.root} ref={rootEl}>
       <h1>Messages for {channel.name}</h1>
@@ -109,7 +118,8 @@ export default forwardRef(({
             return (
               <li key={i} css={styles.message}>
                 <p>
-                  <span>{message.author}</span>
+                  <Gravatar email={message.authorMail}/>
+                  <span>{message.authorMail}</span>
                   {' - '}
                   <span>{dayjs().calendar(message.creation)} </span>
                   { message.authorMail === oauth.email ? 
