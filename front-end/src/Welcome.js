@@ -57,15 +57,13 @@ export default () => {
         spacing={5}
       >
         <Grid item xs>
-          <div>
+          <div css={styles.card}>
             <Typography color="textPrimary">
-              <div css={styles.card}>
                 Welcome to our chat application !<br/>
                 On the left side there are the channels (you can only access the ones you are in)<br/>
                 Down there are some stuffs you are free to try (settings, account...)<br/>
                 <br/>
                 Enjoy !<br/>
-              </div>
             </Typography>
           </div>
         </Grid>

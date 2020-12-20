@@ -60,6 +60,7 @@ export default function CheckboxList(props) {
   return (
     <List className={classes.root}>
       {users.map((user) => {
+        if( user.email === oauth.email ) return
         const labelId = `checkbox-list-label-${user.id}`;
 
         return (

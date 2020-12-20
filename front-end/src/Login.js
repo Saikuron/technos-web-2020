@@ -142,19 +142,6 @@ export default ({
           removeCookie('code_verifier')
           setOauth(userData)
           // window.location = '/'
-          // If we get the user from the db and no return, create user
-          const { data: users } = await axios.get('http://localhost:3001/users')
-          let userExists = false;
-          if( users.some( user => user.email === userData.email )) {
-            // Create a new one
-            userExists = true;
-          }
-          if (!userExists) {
-            await axios.post('http://localhost:3001/users', {
-              username: userData.email,
-              email: userData.email,
-            })
-          }
           history.push('/')
         }catch (err) {
           console.error(err)
