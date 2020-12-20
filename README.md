@@ -71,7 +71,7 @@ Project management
 * Code quality   
   *place your comments*
 * Design, UX   
-  *We decided to keep a simple yet elegant design, based on a primary blue color and a secondary red color. We used a lot of icons in order to keep a friendly application. *
+  *We decided to keep a simple yet elegant design, based on a primary blue color and a secondary red color. We used a lot of icons in order to keep a friendly application*
 * Git and DevOps   
   *place your comments*
 
