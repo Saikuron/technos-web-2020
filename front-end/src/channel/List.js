@@ -1,8 +1,15 @@
-import {forwardRef, useImperativeHandle, useLayoutEffect, useRef} from 'react'
+import {forwardRef, useImperativeHandle, useLayoutEffect, useRef, useContext} from 'react'
+import Context from '../Context'
+import Gravatar from 'react-gravatar'
+import axios from 'axios'
+// import {useHistory} from 'react-router-dom'
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
 // Layout
 import { useTheme } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 // Markdown
 import unified from 'unified'
 import markdown from 'remark-parse'
@@ -58,8 +65,11 @@ export default forwardRef(({
   channel,
   messages,
   onScrollDown,
+  fetchMessages,
 }, ref) => {
   const styles = useStyles(useTheme())
+  const {oauth} = useContext(Context)
+  // const history = useHistory();
   // Expose the `scroll` action
   useImperativeHandle(ref, () => ({
     scroll: scroll
@@ -101,7 +111,28 @@ export default forwardRef(({
                 <p>
                   <span>{message.author}</span>
                   {' - '}
-                  <span>{dayjs().calendar(message.creation)}</span>
+                  <span>{dayjs().calendar(message.creation)} </span>
+                  { message.authorMail === oauth.email ? 
+                    <span>
+                      <IconButton onClick={async (e) => {
+                        e.preventDefault()
+                        // Active un textField plus bas avec un bouton, qui modifiera le message
+                      }}>
+                        <EditIcon/>
+                      </IconButton>
+                      <IconButton aria-label="delete" messagecreation={message.creation} onClick={async (e) => {
+                        e.preventDefault()
+                        axios.delete(`http://localhost:3001/channels/${channel.id}/messages/${message.creation}`)
+                        fetchMessages()
+                        alert("The message won't appear after reloading")
+                        // window.location.reload()
+                        // history.push(`/channels/${channel.id}`)
+                      }}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </span>
+                    : ''
+                  }
                 </p>
                 <div dangerouslySetInnerHTML={{__html: content}}>
                 </div>

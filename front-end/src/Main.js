@@ -58,14 +58,7 @@ export default () => {
           'email' : `${oauth.email}` 
         }
       })
-      let channelsFiltered = []
-      channels.map( (channel) => {
-        if(channel.users && channel.users.some( user => user.email === oauth.email )) {
-          channelsFiltered.push(channel)
-        }
-        return;
-      })
-      setChannels(channelsFiltered)
+      setChannels(channels)
     } catch (err) {
       console.error(err)
     }
@@ -76,6 +69,36 @@ export default () => {
   const fetchChannels = async () => {
     fetch()
   }
+<<<<<<< Updated upstream
+=======
+
+  const checkUserInDB = async (userData) => {
+    // If we get the user from the db and no return, create user
+    const { data: users } = await axios.get('http://localhost:3001/users', {
+      headers: {
+        'Authorization': `Bearer ${oauth.access_token}`
+      }
+    })
+    let userExists = false;
+    if( users.some( user => user.email === userData.email )) {
+      // Create a new one
+      userExists = true;
+    }
+    if (!userExists) {
+      await axios.post('http://localhost:3001/users', {
+        data: {
+          username: userData.username,
+          email: userData.email,
+      }}, {
+        headers: {
+          'Authorization': `Bearer ${oauth.access_token}`
+        }
+      })
+    }
+  }
+  
+
+>>>>>>> Stashed changes
   return (
     <main css={styles.root}>
       <Drawer

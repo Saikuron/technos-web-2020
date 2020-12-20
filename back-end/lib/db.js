@@ -81,6 +81,15 @@ module.exports = {
         })
       })
     },
+    delete: async (channelId, messageCreation) => {
+      await db.del(`messages:${channelId}:${messageCreation}`, function (err) {
+        if (err)
+          console.log(err)
+      });
+      return
+      // const original = store.channels[channelId].messages[messageCreation]
+      // console.log(original)
+    },
   },
   users: {
     create: async (user) => {

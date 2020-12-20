@@ -47,8 +47,8 @@ export default function CheckboxList(props) {
           'Authorization': `Bearer ${oauth.access_token}`
         }
       })
+      // console.log(usersFromDB)
       setUsers(usersFromDB)
-      console.log(usersFromDB)
     } catch (err) {
       console.error(err)
     }
