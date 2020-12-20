@@ -4,11 +4,8 @@ import { jsx } from '@emotion/core'
 // Layout
 import { useTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
 import {ReactComponent as ChannelIcon} from './icons/channel.svg';
-import {ReactComponent as FriendsIcon} from './icons/friends.svg';
 import {ReactComponent as SettingsIcon} from './icons/settings.svg';
 import {ReactComponent as StarIcon} from './icons/star.svg';
 
@@ -35,11 +32,11 @@ const useStyles = (theme) => ({
 
 export default () => {
   const styles = useStyles(useTheme())
-  const addFriends = (e) => {
-    e.preventDefault();
-    // setFormChannel(true);
-    //history.push(`/friends`);
-  }
+  // const addFriends = (e) => {
+  //   e.preventDefault();
+  //   // setFormChannel(true);
+  //   //history.push(`/friends`);
+  // }
   return (
     <div css={styles.root}>
       <Grid

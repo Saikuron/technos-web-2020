@@ -1,4 +1,4 @@
-import {useState, useCallback, useContext, useEffect} from 'react';
+import {useCallback, useContext, useEffect} from 'react';
 import Context from './Context'
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
@@ -52,15 +52,17 @@ export default function CheckboxList(props) {
     } catch (err) {
       console.error(err)
     }
-  },[setUsers])
+  },[setUsers, oauth.access_token])
   useEffect(() => {
     fetch()
   }, [setUsers, fetch])
 
   return (
     <List className={classes.root}>
-      {users.map((user) => {
-        if( user.email === oauth.email ) return
+      { users.filter( (user) => {
+          if( user.email === oauth.email ) return false
+          return true
+        }).map((user) => {
         const labelId = `checkbox-list-label-${user.id}`;
 
         return (

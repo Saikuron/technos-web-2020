@@ -12,8 +12,6 @@ import Channels from './Channels'
 import ChannelCreation from './ChannelCreation'
 import Channel from './Channel'
 import Welcome from './Welcome'
-import Friends from './Friends'
-import Account from './Account'
 import {
   Route,
   Switch,
@@ -58,11 +56,10 @@ export default () => {
         }
       })
       let channelsFiltered = []
-      channels.map( (channel) => {
+      channels.forEach( (channel) => {
         if(channel.users && channel.users.some( user => user.email === oauth.email )) {
           channelsFiltered.push(channel)
         }
-        return;
       })
       setChannels(channelsFiltered)
     } catch (err) {
