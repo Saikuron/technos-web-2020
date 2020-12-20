@@ -41,6 +41,6 @@
     "reset": "bin/reset",
     "develop": "bin/init && bin/start",
     "start": "bin/start",
-    "test": "mocha 'test/**/*.js'"
+    "test": "NODE_ENV=test mocha 'test/**/*.js'"
   }
 }
