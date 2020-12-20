@@ -10,7 +10,7 @@ import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import Form from './channel/Form'
 import List from './channel/List'
 import Context from './Context'
-import { useHistory, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
 const useStyles = (theme) => ({
   root: {
@@ -32,7 +32,7 @@ const useStyles = (theme) => ({
 })
 
 export default () => {
-  const history = useHistory()
+  //const history = useHistory()
   const { id } = useParams()
   const {channels, messages, setMessages} = useContext(Context)
   const channel = channels.find( channel => channel.id === id)

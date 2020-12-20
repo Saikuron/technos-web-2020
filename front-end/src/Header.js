@@ -5,8 +5,8 @@ import { jsx } from '@emotion/core'
 // Layout
 import { useTheme } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
-import Link from '@material-ui/core/Link';
-import MenuIcon from '@material-ui/icons/Menu';
+import MenuIcon from '@material-ui/icons/Menu'
+import Button from '@material-ui/core/Button'
 import Context from './Context'
 
 const useStyles = (theme) => ({
@@ -43,11 +43,6 @@ export default ({
     e.stopPropagation()
     setOauth(null)
   }
-  // const myAccount = (e) => {
-  //   e.preventDefault();
-  //   // setFormChannel(true);
-  //   //history.push(`/account/update`);
-  // }
   return (
     <header css={styles.header}>
       <IconButton
@@ -62,11 +57,7 @@ export default ({
         oauth ?
           <span>
             {oauth.email} |
-            <Link  href={`/account`}> My account </Link>
-            |
-            <Link onClick={onClickLogout}> Log Out </Link>
-            |
-            <Link href={`/`}> Home </Link>
+            <Button color="primary" onClick={onClickLogout}>Log Out</Button>
           </span>
         :
           <span>new user</span>

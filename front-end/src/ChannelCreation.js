@@ -66,7 +66,7 @@ function ChannelCreation({fetchChannels}) {
     }
     // console.log(oauth.email)
     return (
-        <div>
+        <div style={{paddingLeft: '30px'}}>
             <h1>Channel Creation</h1>
             <form onSubmit={onSubmit} noValidate>
                 <TextField 
@@ -74,15 +74,16 @@ function ChannelCreation({fetchChannels}) {
                     label="Name"
                     value={nameContent}
                     onChange={handleChange} 
+                    style={{width: '260px'}}
                 />
                 <UsersList checked={checked} setChecked={setChecked} ></UsersList>
-                <Button variant="contained" color="primary" onClick={onSubmit}>
+                <Button variant="contained" color="primary" onClick={onSubmit} style={{width: '170px'}}>
                     Create Channel
                 </Button>
                 <Button variant="contained" color="secondary" onClick={(e) => {
                     e.preventDefault()
                     history.push('/channels')
-                }}>
+                }} style={{width: '90px'}}>
                     Cancel
                 </Button>
             </form>

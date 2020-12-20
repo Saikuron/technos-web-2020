@@ -40,6 +40,11 @@ export default () => {
     // setFormChannel(true);
     history.push(`/channels/new`);
   }
+  const gotoSettings = (e) => {
+    e.preventDefault();
+    // setFormChannel(true);
+    history.push(`/settings`);
+  }
   return (
     <div css={styles.root}>
       <Grid
@@ -68,32 +73,30 @@ export default () => {
           </div>
         </Grid>
       </Grid>
-          <Grid item xs>
-            <div css={styles.card} onClick={addChannel}>
-              <ChannelIcon css={styles.icon} />
-              <Typography color="textPrimary">
-                Create channels
-              </Typography>
-            </div>
-          </Grid>
-          <Grid item xs>
-            <Link href={`/settings`}>
-              <div css={styles.card}>
-                <SettingsIcon css={styles.icon} />
-                <Typography color="textPrimary">
-                  Settings
-                </Typography>
-              </div>
-            </Link>
-          </Grid>
-          <Grid item xs>
-            <div css={styles.card}>
-              <StarIcon css={styles.icon} />
-              <Typography color="textPrimary">
-                Favorite Channel
-              </Typography>
-            </div>
-          </Grid>
+        <Grid item xs>
+          <div css={styles.card} onClick={addChannel}>
+            <ChannelIcon css={styles.icon} />
+            <Typography color="textPrimary">
+              Create channels
+            </Typography>
+          </div>
+        </Grid>
+        <Grid item xs>
+          <div css={styles.card} onClick={gotoSettings}>
+            <SettingsIcon css={styles.icon} />
+            <Typography color="textPrimary">
+              Settings
+            </Typography>
+          </div>
+        </Grid>
+        <Grid item xs>
+          <div css={styles.card}>
+            <StarIcon css={styles.icon} />
+            <Typography color="textPrimary">
+              Favorite Channel
+            </Typography>
+          </div>
+        </Grid>
       </Grid>
     </div>
   );
