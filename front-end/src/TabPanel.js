@@ -5,11 +5,14 @@ import SwipeableViews from 'react-swipeable-views';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom'
 import Context from './Context'
+import CardJean from './CardJean'
+import CardLucas from './CardLucas'
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Switch from '@material-ui/core/Switch'
+import Grid from '@material-ui/core/Grid'
 import Zoom from '@material-ui/core/Zoom';
 import Fab from '@material-ui/core/Fab';
 import HomeIcon from '@material-ui/icons/Home';
@@ -32,8 +35,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Favorite from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
-import Jean from './images/jean.jpg';
-import Lucas from './images/lucas.jpg';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -247,8 +248,14 @@ export default function FloatingActionButtonZoom() {
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           <br/>
-          <img src={Jean} height='300px' alt="Beautiful photograph of Jean"/>
-          <img src={Lucas} height='300px' alt="Beautiful photograph of Lucas"/><br/>
+          <Grid container>
+            <Grid item xs={6}>
+              <CardJean />
+            </Grid>
+            <Grid item xs={6}>
+              <CardLucas />
+            </Grid>
+          </Grid>
           We are Jean & Lucas, students in IS at ECE Paris<br/>
           <FormControlLabel
             control={<Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} name="checkedH" />}

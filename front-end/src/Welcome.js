@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import {ReactComponent as ChannelIcon} from './icons/channel.svg';
 import {ReactComponent as SettingsIcon} from './icons/settings.svg';
 import {ReactComponent as StarIcon} from './icons/star.svg';
-import BackGround from './images/bg.jpg'
+import BackGround from './images/bg.svg'
 
 const useStyles = (theme) => ({
   root: {
@@ -53,18 +53,17 @@ export default () => {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <h1 color="textPrimary" css={styles.txt}>
-              Welcome to our chat application !<br/>
+              Welcome to our chat application !<br/><br/>
               On the left side there are the channels (you can only access the ones you are in)<br/>
               Down there are some stuffs you are free to try (settings, account...)<br/>
               <br/>
               Enjoy !<br/>
           </h1>
+          <h4>(Thanks Adaltas for the background)</h4>
         </Grid>
         <Grid item xs={6}>
-          <h1></h1>
         </Grid>
         <Grid item xs={6}>
-          <h1></h1>
         </Grid>
         <Grid item xs={4}>
           <div css={styles.card} onClick={addChannel}>
