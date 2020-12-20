@@ -7,4 +7,3 @@ yarn.lock
 /back-end/db
 !.gitignore
 logs/
-/start

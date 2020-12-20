@@ -12,6 +12,8 @@ import Channels from './Channels'
 import ChannelCreation from './ChannelCreation'
 import Channel from './Channel'
 import Welcome from './Welcome'
+import Friends from './Friends'
+import Account from './Account'
 import {
   Route,
   Switch,

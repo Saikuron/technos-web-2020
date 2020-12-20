@@ -4,6 +4,7 @@ import { useContext } from 'react'
 import { jsx } from '@emotion/core'
 // Layout
 import { useTheme } from '@material-ui/core/styles';
+import { useHistory } from 'react-router-dom'
 import IconButton from '@material-ui/core/IconButton';
 import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -43,6 +44,11 @@ export default ({
     e.stopPropagation()
     setOauth(null)
   }
+  const myAccount = (e) => {
+    e.preventDefault();
+    // setFormChannel(true);
+    //history.push(`/account/update`);
+  }
   return (
     <header css={styles.header}>
       <IconButton
@@ -53,12 +59,15 @@ export default ({
       >
         <MenuIcon />
       </IconButton>
-      Header
       {
         oauth ?
           <span>
-            {oauth.email}
-            <Link onClick={onClickLogout}>logout</Link>
+            {oauth.email} |
+            <Link  href={`/account`}> My account </Link>
+            |
+            <Link onClick={onClickLogout}> Log Out </Link>
+            |
+            <Link href={`/`}> Home </Link>
           </span>
         :
           <span>new user</span>
