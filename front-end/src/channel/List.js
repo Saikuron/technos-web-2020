@@ -64,8 +64,10 @@ export default forwardRef(({
   channel,
   messages,
   onScrollDown,
+  fetchMessages,
 }, ref) => {
   const styles = useStyles(useTheme())
+  const {oauth} = useContext(Context)
   // Expose the `scroll` action
   useImperativeHandle(ref, () => ({
     scroll: scroll
@@ -105,11 +107,27 @@ export default forwardRef(({
             return (
               <li key={i} css={styles.message}>
                 <p>
-                  <span>{message.author}</span>
+                  <span>{message.authorMail}</span>
                   {' - '}
                   <span>{dayjs().calendar(message.creation)} </span>
-                  <EditIcon css={styles.icons} />
-                  <TrashIcon css={styles.icons} />
+                  { message.authorMail === oauth.email ? 
+                    <span>
+                      <IconButton onClick={async (e) => {
+                        e.preventDefault()
+                        // Active un textField plus bas avec un bouton, qui modifiera le message
+                      }}>
+                        <EditIcon/>
+                      </IconButton>
+                      <IconButton aria-label="delete" messagecreation={message.creation} onClick={async (e) => {
+                        e.preventDefault()
+                        await axios.delete(`http://localhost:3001/channels/${channel.id}/messages/${message.creation}`)
+                        await fetchMessages()
+                      }}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </span>
+                    : ''
+                  }
                 </p>
                 <div dangerouslySetInnerHTML={{__html: content}}>
                 </div>

@@ -14,7 +14,7 @@ const config = {
       email: 'jeand@example.com'
     }],
     messages: [{
-      author: 'sergei',
+      authorMail: 'ksergei@example.com',
       creation: 1602831101929,
       content: `
       ## 1 - Architecture - Level easy
@@ -47,7 +47,7 @@ const config = {
       \`\`\`
       `.replace(/^ {6}/gm,''),
     },{
-      author: 'david',
+      authorMail: 'wdavid@example.com',
       creation: 1602832138892,
       content: `
       ## 2 - Styles - Level easy
@@ -57,7 +57,7 @@ const config = {
       with an icon, working on the header, providing day/night themes ... be creative
       `.replace(/^ {6}/gm,''),
     },{
-      author: 'sergei',
+      authorMail: 'ksergei@example.com',
       creation: 1602840139202,
       content: `
       ## 3 - Use an external library - Level medium
@@ -71,7 +71,7 @@ const config = {
       and act accordingly.
       `.replace(/^ {6}/gm,''),
     },{
-      author: 'david',
+      authorMail: 'wdavid@example.com',
       creation: 1602844139200,
       content: `
       ## 4 - Support message contents in Markdown - Level hard
@@ -95,13 +95,13 @@ const config = {
       email: 'admin@example.com'
     }],
     messages: [{
-      author: 'sergei',
+      authorMail: 'ksergei@example.com',
       creation: 1602223579200,
       content: `
       Ping
       `.replace(/^ {6}/gm,'')
     },{
-      author: 'david',
+      authorMail: 'wdavid@example.com',
       creation: 1602523579200,
       content: `
       Pong
@@ -113,13 +113,13 @@ const config = {
       email: 'admin@example.com'
     }],
     messages: [{
-      author: 'sergei',
+      authorMail: 'ksergei@example.com',
       creation: 1602223579200,
       content: `
       What is the answer to the Ultimate Question of Life, the Universe and Everything ?
       `.replace(/^ {6}/gm,'')
     },{
-      author: 'david',
+      authorMail: 'wdavid@example.com',
       creation: 1602523579200,
       content: `
       42

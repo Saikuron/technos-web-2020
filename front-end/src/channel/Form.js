@@ -45,7 +45,7 @@ export default ({
       `http://localhost:3001/channels/${channel.id}/messages`
     , {
       content: content,
-      author: oauth.username,
+      authorMail: oauth.email,
     })
     addMessage(message)
     setContent('')

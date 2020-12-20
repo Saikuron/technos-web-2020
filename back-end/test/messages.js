@@ -30,13 +30,13 @@ describe('messages', () => {
     // and a message inside it
     await supertest(app)
     .post(`/channels/${channel.id}/messages`)
-    .send({author: 'whoami', content: 'Hello ECE'})
+    .send({authorMail: 'whoami', content: 'Hello ECE'})
     // Get messages
     const {body: messages} = await supertest(app)
     .get(`/channels/${channel.id}/messages`)
     .expect(200)
     messages.should.match([{
-      author: 'whoami',
+      authorMail: 'whoami',
       creation: (it) => it.should.be.approximately(microtime.now(), 1000000),
       content: 'Hello ECE'
     }])
@@ -50,10 +50,10 @@ describe('messages', () => {
     // Create a message inside it
     const {body: message} = await supertest(app)
     .post(`/channels/${channel.id}/messages`)
-    .send({author: 'whoami', content: 'Hello ECE'})
+    .send({authorMail: 'whoami', content: 'Hello ECE'})
     .expect(201)
     message.should.match({
-      author: 'whoami',
+      authorMail: 'whoami',
       creation: (it) => it.should.be.approximately(microtime.now(), 1000000),
       content: 'Hello ECE'
     })
