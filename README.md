@@ -38,11 +38,11 @@ It is basically a chat application like messenger or whatsapp. You'll have the p
   ```
 * Install the dependencies
   ```bash
-  #Back-end
+  # Back-end
   cd back-end
   # Install dependencies (use yarn or npm)
   yarn install
-  #Front-end
+  # Front-end
   cd ../front-end
   # Install dependencies (use yarn or npm)
   yarn install
@@ -71,14 +71,14 @@ Project management
 * Code quality   
   *place your comments*
 * Design, UX   
-  We decided to keep a simple yet elegant design, based on a primary blue color and a secondary red color. We used a lot of icons in order to keep a friendly application. 
+  *We decided to keep a simple yet elegant design, based on a primary blue color and a secondary red color. We used a lot of icons in order to keep a friendly application. *
 * Git and DevOps   
   *place your comments*
 
 Application development
 
 * Welcome screens   
-  You will find on the welcome page a friendly message that will explain to you what you can do in the app. You will see that you can add a channel, go to your settings page, or directly go for your favorite channel
+  *You will find on the welcome page a friendly message that will explain to you what you can do in the app. You will see that you can add a channel, go to your settings page, or directly go for your favorite channel*
 * New channel creation   
   *place your comments*
 * Channel membership and access   
@@ -92,7 +92,7 @@ Application development
 * Message removal   
   *place your comments*
 * Account settings   
-  At `localhost:3000/settings`, you will have the possibility to change informations about your account, like your name, your e-mail adress, the theme of the application, your favorite channel. You will also have the possibility to contact us, to log out, or to know a little bit about us, the authors. We've used a lot of [Material UI](https://material-ui.com/getting-started/installation/) Components to make our app as friendly and as easy-to-use as possible
+  *At `localhost:3000/settings`, you will have the possibility to change informations about your account, like your name, your e-mail adress, the theme of the application, your favorite channel. You will also have the possibility to contact us, to log out, or to know a little bit about us, the authors. We've used a lot of [Material UI](https://material-ui.com/getting-started/installation/) Components to make our app as friendly and as easy-to-use as possible*
 * Gravatar integration   
   *place your comments*
 * Avatar selection   
