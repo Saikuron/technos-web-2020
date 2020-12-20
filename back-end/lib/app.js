@@ -72,7 +72,7 @@ app.get('/users', authenticate, async (req, res) => {
 
 app.post('/users', authenticate, async (req, res) => {
 // app.post('/users', async (req, res) => {
-  const user = await db.users.create(req.body)
+  const user = await db.users.create(req.body.data)
   res.status(201).json(user)
 })
 

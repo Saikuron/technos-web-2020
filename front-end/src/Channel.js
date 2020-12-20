@@ -34,7 +34,7 @@ const useStyles = (theme) => ({
 export default () => {
   const history = useHistory()
   const { id } = useParams()
-  const {oauth, channels, messages, setMessages} = useContext(Context)
+  const {oauth, channels} = useContext(Context)
   const channel = channels.find( channel => channel.id === id)
   if(!channel) {
     history.push('/oups')
@@ -43,9 +43,9 @@ export default () => {
   const styles = useStyles(useTheme())
   const listRef = useRef()
   const channelId = useRef()
-  // const [messages, setMessages] = useState([]) 
+  const [messages, setMessages] = useState([]) 
   const [scrollDown, setScrollDown] = useState(false)
-  const fetchMessages = useCallback( async () => {
+  const fetchMessages = async () => {
     setMessages([])
     const {data: messages} = await axios.get(`http://localhost:3001/channels/${channel.id}/messages`, {
       headers: {
@@ -56,16 +56,13 @@ export default () => {
     if(listRef.current){
       listRef.current.scroll()
     }
-  }, [channel.id, setMessages])
+  }
   const addMessage = (message) => {
     fetchMessages()
   }
   const onScrollDown = (scrollDown) => {
     setScrollDown(scrollDown)
   }
-  useEffect(() => {
-    fetchMessages()
-  },[fetchMessages, setMessages, channel.id])
   if(channelId.current !== channel.id){
     fetchMessages()
     channelId.current = channel.id

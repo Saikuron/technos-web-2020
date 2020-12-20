@@ -136,8 +136,8 @@ const config = {
       }
     })
     return Promise.all( channel.messages.map( async (message) => {
-      await axios.post(`http://localhost:${config.port}/channels/${id}/messages`, 
-        {data: {
+      await axios.post(`http://localhost:${config.port}/channels/${id}/messages`, {
+          data: {
           authorMail: message.authorMail,
           content: message.content
         }}
@@ -160,9 +160,10 @@ const config = {
   }].map( async (user) => {
     // const {data: {id}} = 
     await axios.post(`http://localhost:${config.port}/users`, {
-      username: user.username,
-      email: user.email,
-    })
+      data :{
+        username: user.username,
+        email: user.email,
+    }})
   }))
   process.env.NODE_STEP = ''
   process.exit()
