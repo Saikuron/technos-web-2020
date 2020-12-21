@@ -6,9 +6,10 @@ It is basically a chat application like messenger or whatsapp. You'll have the p
 
 ## Usage
 
-* Clone this repository, from your local machine:
+* Clone this repository, from your local machine, and go inside it
   ```
-  git clone https://github.com/Saikuron/technos-web-2020.git
+  git clone https://github.com/Saikuron/technos-web-2020.git webtech-project
+  cd webtech-project
   ```
 * Install [Go](https://golang.org/) and [Dex](https://dexidp.io/docs/getting-started/). For example, on Ubuntu, from your project root directory:   
   ```
@@ -20,10 +21,12 @@ It is basically a chat application like messenger or whatsapp. You'll have the p
   cd dex
   make
   make examples
+  cd ..
   ```
   Note, the provided `.gitignore` file ignore the `dex` folder.
-  The dex config file is not provided because you asked to not provide anything related to dex.
-** Install the dependencies
+  The dex config file is not provided because you asked to not provide anything related to dex. You should use http://localhost:3000 as a redirect URI of the app, not http://127.0.0.1:3000
+  Also our back-end/bin/init file uses accounts such as wdavid@example.com, ksergei@example.com or jeand@example.com, so add them in you dex config file to access them
+* Install the dependencies
   ```bash
   # Back-end
   cd back-end
@@ -35,7 +38,7 @@ It is basically a chat application like messenger or whatsapp. You'll have the p
   yarn install
   ```
 * To start the app we provide a bash script, you can use -h option to see the options available
-  It assumes you have dex locally as if you dowloaded it like shown above, and that you have a config-private.yaml file in the dex-config directory at the root
+  It assumes you have dex locally as if you dowloaded it like shown above, and that you have a config-private.yaml file in the dex-config directory at the root. Don't forget to remove the cookies for http://localhost:3000
   ```bash
   # Go back on the project source
   cd ..

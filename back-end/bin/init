@@ -13,6 +13,10 @@ const config = {
     name: 'Channel 1',
     users: [{
       email: 'jeand@example.com'
+    }, { 
+      email: 'ksergei@example.com'
+    }, { 
+      email: 'wdavid@example.com'
     }],
     messages: [{
       authorMail: 'ksergei@example.com',
@@ -94,6 +98,10 @@ const config = {
     name: 'Channel 2',
     users: [{
       email: 'admin@example.com'
+    }, { 
+      email: 'ksergei@example.com'
+    }, { 
+      email: 'wdavid@example.com'
     }],
     messages: [{
       authorMail: 'ksergei@example.com',
@@ -114,6 +122,10 @@ const config = {
       email: 'admin@example.com'
     }, { 
       email: 'jeand@example.com'
+    }, { 
+      email: 'ksergei@example.com'
+    }, { 
+      email: 'wdavid@example.com'
     }],
     messages: [{
       authorMail: 'ksergei@example.com',
