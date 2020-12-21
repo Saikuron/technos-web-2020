@@ -1,5 +1,6 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import React from 'react';
+import axios from 'axios'
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
@@ -35,6 +36,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Favorite from '@material-ui/icons/Favorite';
 import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
+import SaveIcon from '@material-ui/icons/Save';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -85,22 +87,55 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor: green[600],
     },
   },
+  button: {
+    margin: theme.spacing(1),
+    marginTop: '2%',
+    marginLeft: '2%',
+    paddingLeft: '4%',
+    paddingRight: '4%',
+  },
 }));
 
 export default function FloatingActionButtonZoom() {
   const classes = useStyles();
   const history = useHistory();
   const theme = useTheme();
-  const [value, setValue] = React.useState(0);
+  const [value, setValue] = useState(0);
+  const [settings, setSettings] = useState({});
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [switchesState, setSwitchesState] = useState({
+    checkedNotif: true,
+    checkedActive: true,
+  });
+  const [sliderValue, setSliderValue] = useState(0);
+  const [themeValue, setThemeValue] = useState('');
+  const [favChannel, setFavChannel] = useState('');
 
+  const handleChangeUsername = (e) => {
+    setUsername(e.target.value)
+  }
+  const handleChangeEmail = (e) => {
+    setEmail(e.target.value)
+  }
+  const handleSwitch = (event) => {
+    setSwitchesState({ ...switchesState, [event.target.name]: event.target.checked });
+  };
+  const handleSlider = (event, newValue) => {
+    setSliderValue(newValue);
+  };
+  const handleChangeTheme = (event) => {
+    setThemeValue(event.target.value);
+  }
+  const handleChangeFavChannel = (event) => {
+    setFavChannel(event.target.value);
+  }
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
   const handleChangeIndex = (index) => {
     setValue(index);
   };
-
   const goHome = (e) => {
     e.preventDefault();
     // setFormChannel(true);
@@ -154,19 +189,29 @@ export default function FloatingActionButtonZoom() {
     },
   ];
 
-  const [open, setOpen] = React.useState(false);
-
+  const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
   };
-
   const handleClose = () => {
     setOpen(false);
   };
-
   const {
     channels
   } = useContext(Context)
+  const saveSettings = (e) => {
+    e.preventDefault()
+    const newSettings = {
+      username: username,
+      email: email,
+      switchesState: switchesState,
+      sliderValue: sliderValue,
+      themeValue: themeValue,
+      favChannel: favChannel,
+    }
+    setSettings(newSettings)
+    // await axios.put(`http://localhost:3001/users/${oauth.email}`)
+  }
 
   return (
     <div className={classes.root}>
@@ -196,6 +241,8 @@ export default function FloatingActionButtonZoom() {
             label={oauth.username}
             placeholder="Change username"
             style={{width: '300px'}}
+            value={username}
+            onChange={handleChangeUsername}
           />
           <br/>
           <TextField 
@@ -203,15 +250,25 @@ export default function FloatingActionButtonZoom() {
               label={oauth.email}
               placeholder="Change mail"
               style={{width: '300px'}}
+              value={email}
+              onChange={handleChangeEmail}
           />
           <br/><br/>
-          Notifications <Switch />
+          Notifications 
+          <Switch
+            checked={switchesState.checkedNotif}
+            onChange={handleSwitch}
+            name="checkedNotif"
+            inputProps={{ 'aria-label': 'primary checkbox' }}
+          />
           <br/>
           <Typography id="discrete-slider" gutterBottom>
             Notifications volume
           </Typography>
           <Slider
-            defaultValue={6}
+            defaultValue={sliderValue}
+            value={sliderValue}
+            onChange={handleSlider}
             //getAriaValueText={valuetext}
             aria-labelledby="discrete-slider"
             valueLabelDisplay="auto"
@@ -226,6 +283,8 @@ export default function FloatingActionButtonZoom() {
             <InputLabel id="demo-simple-select-filled-label">Theme</InputLabel>
             <Select
               style={{width:'300px'}}
+              value={themeValue}
+              onChange={handleChangeTheme}
             >
               <MenuItem value={1}>Dark</MenuItem>
               <MenuItem value={2}>Light</MenuItem>
@@ -233,18 +292,39 @@ export default function FloatingActionButtonZoom() {
             </Select>
           </FormControl>
           <br/>
-          Show other if I am active <Switch />
+          Show other if I am active 
+          <Switch
+            checked={switchesState.checkedActive}
+            onChange={handleSwitch}
+            color="primary"
+            name="checkedActive"
+            inputProps={{ 'aria-label': 'primary checkbox' }}
+          />
           <br/><br/>
           <FormControl variant="filled">
             <InputLabel id="demo-simple-select-filled-label">My favorite channel</InputLabel>
             <Select
               style={{width:'300px'}}
+              value={favChannel}
+              onChange={handleChangeFavChannel}
             >
               { channels.map( (channel, i) => (
-                <MenuItem value={i}>{channel.name}</MenuItem>
+                <MenuItem value={channel.id}>{channel.name}</MenuItem>
               ))}
             </Select>
           </FormControl>
+          {/* Save */}
+          <br/>
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            className={classes.button}
+            startIcon={<SaveIcon />}
+            onClick={saveSettings}
+          >
+            Save
+          </Button>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           <br/>
