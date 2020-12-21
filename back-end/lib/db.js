@@ -3,6 +3,7 @@ const {v4: uuid} = require('uuid')
 const {clone, merge} = require('mixme')
 const microtime = require('microtime')
 const level = require('level')
+const { use } = require('./app')
 const db = level(__dirname + '/../db')
 
 module.exports = {
@@ -124,10 +125,11 @@ module.exports = {
         })
       })
     },
-    update: (id, user) => {
-      const original = store.users[id]
-      if(!original) throw Error('Unregistered user id')
-      store.users[id] = merge(original, user)
+    update: async (id, user) => {
+      const data = await db.get(`users:${id}`)
+      const oldUser = JSON.parse(data)
+      const modUser = {...oldUser, ...user}
+      await db.put(`users:${id}`, JSON.stringify(modUser))
     },
     delete: (id, user) => {
       const original = store.users[id]

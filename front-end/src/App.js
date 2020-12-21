@@ -7,6 +7,7 @@ import Footer from './Footer'
 import Header from './Header'
 import Main from './Main'
 import Login from './Login'
+import Settings from './Settings'
 import Context from './Context'
 import Account from './Account'
 // Rooter
@@ -71,6 +72,9 @@ export default () => {
         </Route>
         <Route path="/account">
           <Account />
+        </Route>
+        <Route path="/settings">
+          <Settings />
         </Route>
       </Switch>
       <Footer />

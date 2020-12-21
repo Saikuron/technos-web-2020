@@ -5,6 +5,7 @@ import axios from 'axios'
 // import {useHistory} from 'react-router-dom'
 /** @jsx jsx */
 import { jsx } from '@emotion/core'
+import UsersList from '../UsersList'
 // Layout
 import { useTheme } from '@material-ui/core/styles';
 // Markdown
@@ -12,6 +13,11 @@ import unified from 'unified'
 import markdown from 'remark-parse'
 import remark2rehype from 'remark-rehype'
 import html from 'rehype-stringify'
+import { useState } from 'react';
+//Material UI
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import Select from '@material-ui/core/Select';
 //Icons
 import EditIcon from '@material-ui/icons/Edit';
 import IconButton from '@material-ui/core/IconButton';
@@ -30,6 +36,7 @@ dayjs.updateLocale('en', {
 
 const useStyles = (theme) => ({
   root: {
+    paddingLeft: '30px',
     position: 'relative',
     flex: '1 1 auto',
     'pre': {
@@ -102,9 +109,19 @@ export default forwardRef(({
   })
   // const deleteMessage = async message => async e => {
 
+  const [checked, setChecked] = useState([]); 
+
   return (
     <div css={styles.root} ref={rootEl}>
       <h1>Messages for {channel.name}</h1>
+      <FormControl variant="filled">
+        <InputLabel id="demo-simple-select-filled-label">Add some friends</InputLabel>
+        <Select
+          style={{width:'300px'}}
+        >
+          <UsersList checked={checked} setChecked={setChecked} ></UsersList>
+        </Select>
+      </FormControl>
       <ul>
         { messages.map( (message, i) => {
             const {contents: content} = unified()
@@ -114,22 +131,23 @@ export default forwardRef(({
             .processSync(message.content)
             return (
               <li key={i} css={styles.message}>
-                <p>
-                  <Gravatar email={message.authorMail}/>
-                  <span>{message.authorMail}</span>
-                  {' - '}
-                  <span>{dayjs().calendar(message.creation)} </span>
-                  { message.authorMail === oauth.email ? 
-                    <span>
-                      <IconButton onClick={async (e) => {
-                        e.preventDefault()
-                        // Active un textField plus bas avec un bouton, qui modifiera le message
-                      }}>
-                        <EditIcon/>
-                      </IconButton>
-                      <IconButton aria-label="delete" messagecreation={message.creation} onClick={async (e) => {
-                        e.preventDefault()
-                        axios.delete(`http://localhost:3001/channels/${channel.id}/messages/${message.creation}`,{
+                <i>
+                  <p>
+                    <Gravatar email={message.authorMail} size={50} mask="circle" />
+                    <span> {message.authorMail}</span>
+                    {' - '}
+                    <span>{dayjs().calendar(message.creation)} </span>
+                    { message.authorMail === oauth.email ? 
+                      <span>
+                        <IconButton onClick={async (e) => {
+                          e.preventDefault()
+                          // Active un textField plus bas avec un bouton, qui modifiera le message
+                        }}>
+                          <EditIcon/>
+                        </IconButton>
+                        <IconButton aria-label="delete" messagecreation={message.creation} onClick={async (e) => {
+                          e.preventDefault()
+                          axios.delete(`http://localhost:3001/channels/${channel.id}/messages/${message.creation}`,{
                           headers: {
                             'Authorization': `Bearer ${oauth.access_token}`
                           }
@@ -138,15 +156,15 @@ export default forwardRef(({
                         alert("The message won't appear after reloading")
                         // window.location.reload()
                         // history.push(`/channels/${channel.id}`)
-                      }}>
-                        <DeleteIcon />
-                      </IconButton>
-                    </span>
-                    : ''
-                  }
-                </p>
-                <div dangerouslySetInnerHTML={{__html: content}}>
-                </div>
+                        }}>
+                          <DeleteIcon />
+                        </IconButton>
+                      </span>
+                      : ''
+                    }
+                  </p>
+                </i>
+                <div dangerouslySetInnerHTML={{__html: content}} style={{paddingLeft: '100px'}}></div>
               </li>
             )
         })}
