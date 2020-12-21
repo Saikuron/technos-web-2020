@@ -14,7 +14,7 @@ describe('messages', () => {
     // Create a channel
     const {body: channel} = await supertest(app)
     .post('/channels')
-    .send({name: 'channel 1'})
+    .send({data: {name: 'channel 1'}})
     // Get messages
     const {body: messages} = await supertest(app)
     .get(`/channels/${channel.id}/messages`)
@@ -26,11 +26,11 @@ describe('messages', () => {
     // Create a channel
     const {body: channel} = await supertest(app)
     .post('/channels')
-    .send({name: 'channel 1'})
+    .send({data: {name: 'channel 1'}})
     // and a message inside it
     await supertest(app)
     .post(`/channels/${channel.id}/messages`)
-    .send({authorMail: 'whoami', content: 'Hello ECE'})
+    .send({data: {authorMail: 'whoami', content: 'Hello ECE'}})
     // Get messages
     const {body: messages} = await supertest(app)
     .get(`/channels/${channel.id}/messages`)
@@ -46,11 +46,11 @@ describe('messages', () => {
     // Create a channel
     const {body: channel} = await supertest(app)
     .post('/channels')
-    .send({name: 'channel 1'})
+    .send({data: {name: 'channel 1'}})
     // Create a message inside it
     const {body: message} = await supertest(app)
     .post(`/channels/${channel.id}/messages`)
-    .send({authorMail: 'whoami', content: 'Hello ECE'})
+    .send({data: {authorMail: 'whoami', content: 'Hello ECE'}})
     .expect(201)
     message.should.match({
       authorMail: 'whoami',

@@ -32,6 +32,9 @@ module.exports = {
           if(req.headers['email'] !== undefined && channel.users.some( user => user.email === req.headers['email']) ){
             channels.push(channel)
           }
+          if(process.env.NODE_ENV === 'test') {
+            channels.push(channel)
+          }
         }).on( 'error', (err) => {
           reject(err)
         }).on( 'end', () => {
