@@ -94,7 +94,6 @@ export default function RecipeReviewCard() {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>Method:</Typography>
           <Typography paragraph>
             And this would be a bigger description explaning his studies, his life and all of his hobbies
           </Typography>
