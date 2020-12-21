@@ -69,4 +69,4 @@ fi
 #ps -ef | grep back-end/bin/start | grep -v grep | awk '{print $2}' | xargs kill
 ps -ef | grep dex | grep -v grep | awk '{print $2}' | xargs kill
 
-printf "Start script done"
+printf "Start script done\n"

@@ -64,7 +64,7 @@ export default ({
             <Button color="primary" onClick={onClickLogout}>Log Out</Button>
           </span>
         :
-          <span>new user</span>
+          <span></span>
       }
       
     </header>

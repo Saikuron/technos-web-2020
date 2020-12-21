@@ -37,7 +37,7 @@ It is basically a chat application like messenger or whatsapp. You'll have the p
   # Install dependencies (use yarn or npm)
   yarn install
   ```
-* To start the app we provide a bash script, you can use -h option to see the options available
+* To start the app we provide a bash script, you can use -h option to see the options available. It sends the logs to a logs directory in the root.
   It assumes you have dex locally as if you dowloaded it like shown above, and that you have a config-private.yaml file in the dex-config directory at the root. Don't forget to remove the cookies for http://localhost:3000
   ```bash
   # Go back on the project source
