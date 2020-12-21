@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [[ ! -d ./logs ]]
+then
+	echo 'creating logs directory'
+	mkdir logs
+fi
+
 # Deal the reset and init switches
 reset=0
 init=0
