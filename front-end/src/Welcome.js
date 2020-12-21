@@ -56,11 +56,11 @@ export default () => {
         <Grid item xs>
           <div css={styles.card}>
             <Typography color="textPrimary">
-                Welcome to our chat application !<br/>
-                On the left side there are the channels (you can only access the ones you are in)<br/>
-                Down there are some stuffs you are free to try (settings, account...)<br/>
-                <br/>
-                Enjoy !<br/>
+              Welcome to our chat application !<br/>
+              On the left side there are the channels (you can only access the ones you are in)<br/>
+              Down there are some stuffs you are free to try (settings, account...)<br/>
+              <br/>
+              Enjoy !<br/>
             </Typography>
           </div>
         </Grid>
