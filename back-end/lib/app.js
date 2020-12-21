@@ -77,13 +77,13 @@ app.post('/users', authenticate, async (req, res) => {
 })
 
 // app.get('/users/:id', authenticate, async (req, res) => {
-app.get('/users/:id', async (req, res) => {
+app.get('/users/:id', authenticate, async (req, res) => {
   const user = await db.users.get(req.params.id)
   res.json(user)
 })
 
 app.put('/users/:id', authenticate, async (req, res) => {
-  const user = await db.users.update(req.body)
+  const user = await db.users.update(req.headers['userid'], req.body.data)
   res.json(user)
 })
 

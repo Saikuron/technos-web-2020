@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useState, useCallback, useEffect } from 'react'
 import React from 'react';
 import axios from 'axios'
 import PropTypes from 'prop-types';
@@ -101,34 +101,57 @@ export default function FloatingActionButtonZoom() {
   const history = useHistory();
   const theme = useTheme();
   const [value, setValue] = useState(0);
-  const [settings, setSettings] = useState({});
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [switchesState, setSwitchesState] = useState({
-    checkedNotif: true,
-    checkedActive: true,
+  const [settings, setSettings] = useState({
+    username: '',
+    email: '',
+    switchesState: {
+      checkedNotif: true,
+      checkedActive: true
+    },
+    sliderValue: 0,
+    themeValue: 0,
+    favChannel: 0
   });
-  const [sliderValue, setSliderValue] = useState(0);
-  const [themeValue, setThemeValue] = useState('');
-  const [favChannel, setFavChannel] = useState('');
+  const {
+    oauth, setOauth
+  } = useContext(Context)
+  const fetch = useCallback( async () => {
+    try {
+      const { data: allUsers } = await axios.get('http://localhost:3001/users', {
+        headers: {
+          'Authorization': `Bearer ${oauth.access_token}`
+        }
+      })
+      allUsers.forEach( (user) => {
+        if( user.email === oauth.email ) {
+          setSettings({...settings, ...user.settings})
+        }
+      })
+    } catch (err) {
+      console.error(err)
+    }
+  },[oauth.access_token, oauth.email])
+  useEffect(() => {
+    fetch()
+  }, [fetch])
 
   const handleChangeUsername = (e) => {
-    setUsername(e.target.value)
+    setSettings({...settings, username: e.target.value})
   }
   const handleChangeEmail = (e) => {
-    setEmail(e.target.value)
+    setSettings({...settings, email: e.target.value})
   }
   const handleSwitch = (event) => {
-    setSwitchesState({ ...switchesState, [event.target.name]: event.target.checked });
+    setSettings({...settings, switchesState: {...settings.switchesState, [event.target.name]: event.target.checked}})
   };
   const handleSlider = (event, newValue) => {
-    setSliderValue(newValue);
+    setSettings({...settings, sliderValue: newValue})
   };
   const handleChangeTheme = (event) => {
-    setThemeValue(event.target.value);
+    setSettings({...settings, themeValue: event.target.value})
   }
   const handleChangeFavChannel = (event) => {
-    setFavChannel(event.target.value);
+    setSettings({...settings, favChannel: event.target.value})
   }
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -141,10 +164,6 @@ export default function FloatingActionButtonZoom() {
     // setFormChannel(true);
     history.push(`/`);
   }
-
-  const {
-    oauth, setOauth
-  } = useContext(Context)
 
   const onClickLogout = (e) => {
     e.stopPropagation()
@@ -199,18 +218,33 @@ export default function FloatingActionButtonZoom() {
   const {
     channels
   } = useContext(Context)
-  const saveSettings = (e) => {
+  const saveSettings = async (e) => {
     e.preventDefault()
-    const newSettings = {
-      username: username,
-      email: email,
-      switchesState: switchesState,
-      sliderValue: sliderValue,
-      themeValue: themeValue,
-      favChannel: favChannel,
+    console.log(settings)
+    const { data: allUsers } = await axios.get('http://localhost:3001/users', {
+      headers: {
+        'Authorization': `Bearer ${oauth.access_token}`
+      }
+    })
+    let userId = -1
+    allUsers.forEach( (user) => {
+      if( user.email === oauth.email ) {
+        userId = user.id
+      }
+    })
+    if(userId) {
+      await axios.put(`http://localhost:3001/users/${userId}`, {
+        data: {
+          settings: settings
+        }
+      }, {
+        headers: {
+          'Authorization': `Bearer ${oauth.access_token}`,
+          'userid': `${userId}`
+        }
+      })
     }
-    setSettings(newSettings)
-    // await axios.put(`http://localhost:3001/users/${oauth.email}`)
+    history.push('/')
   }
 
   return (
@@ -241,7 +275,7 @@ export default function FloatingActionButtonZoom() {
             label={oauth.username}
             placeholder="Change username"
             style={{width: '300px'}}
-            value={username}
+            value={settings.username}
             onChange={handleChangeUsername}
           />
           <br/>
@@ -250,13 +284,13 @@ export default function FloatingActionButtonZoom() {
               label={oauth.email}
               placeholder="Change mail"
               style={{width: '300px'}}
-              value={email}
+              value={settings.email}
               onChange={handleChangeEmail}
           />
           <br/><br/>
           Notifications 
           <Switch
-            checked={switchesState.checkedNotif}
+            checked={settings.switchesState.checkedNotif}
             onChange={handleSwitch}
             name="checkedNotif"
             inputProps={{ 'aria-label': 'primary checkbox' }}
@@ -266,8 +300,8 @@ export default function FloatingActionButtonZoom() {
             Notifications volume
           </Typography>
           <Slider
-            defaultValue={sliderValue}
-            value={sliderValue}
+            defaultValue={settings.sliderValue}
+            value={settings.sliderValue}
             onChange={handleSlider}
             //getAriaValueText={valuetext}
             aria-labelledby="discrete-slider"
@@ -283,7 +317,7 @@ export default function FloatingActionButtonZoom() {
             <InputLabel id="demo-simple-select-filled-label">Theme</InputLabel>
             <Select
               style={{width:'300px'}}
-              value={themeValue}
+              value={settings.themeValue}
               onChange={handleChangeTheme}
             >
               <MenuItem value={1}>Dark</MenuItem>
@@ -294,7 +328,7 @@ export default function FloatingActionButtonZoom() {
           <br/>
           Show other if I am active 
           <Switch
-            checked={switchesState.checkedActive}
+            checked={settings.switchesState.checkedActive}
             onChange={handleSwitch}
             color="primary"
             name="checkedActive"
@@ -305,7 +339,7 @@ export default function FloatingActionButtonZoom() {
             <InputLabel id="demo-simple-select-filled-label">My favorite channel</InputLabel>
             <Select
               style={{width:'300px'}}
-              value={favChannel}
+              value={settings.favChannel}
               onChange={handleChangeFavChannel}
             >
               { channels.map( (channel, i) => (
@@ -414,7 +448,7 @@ export default function FloatingActionButtonZoom() {
       </SwipeableViews>
       {fabs.map((fab, index) => (
         <Zoom
-          key={fab.color}
+          key={index}
           in={value === index}
           timeout={transitionDuration}
           style={{
