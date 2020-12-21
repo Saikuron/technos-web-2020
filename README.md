@@ -22,21 +22,8 @@ It is basically a chat application like messenger or whatsapp. You'll have the p
   make examples
   ```
   Note, the provided `.gitignore` file ignore the `dex` folder.
-* Make a copy of the Dex configuration to `./dex-config/config-private.yaml`, the project is configured to Git ignore this path:
-  ```bash
-  cp -rp ./dex-config/config.yaml ./dex-config/config-private.yaml
-  ```
-* Register your GitHub application, get the clientID and clientSecret from GitHub and report them to your Dex configuration. Modify the provided `./dex-config/config-private.yaml` configuration to look like:
-  ```yaml
-  - type: github
-    id: github
-    name: GitHub
-    config:
-      clientID: xxxx98f1c26493dbxxxx
-      clientSecret: xxxxxxxxx80e139441b637796b128d8xxxxxxxxx
-      redirectURI: http://127.0.0.1:5556/dex/callback
-  ```
-* Install the dependencies
+  The dex config file is not provided because you asked to not provide anything related to dex.
+** Install the dependencies
   ```bash
   # Back-end
   cd back-end
@@ -47,36 +34,42 @@ It is basically a chat application like messenger or whatsapp. You'll have the p
   # Install dependencies (use yarn or npm)
   yarn install
   ```
-* Start the app
+* To start the app we provide a bash script, you can use -h option to see the options available
+  It assumes you have dex locally as if you dowloaded it like shown above, and that you have a config-private.yaml file in the dex-config directory at the root
   ```bash
   # Go back on the project source
   cd ..
-  #Launch the start script that will launch dex, init and start the back-end, and start the front-end
-  start
+  # Launch the start script that will launch dex, start the back-end, and start the front-end
+  # Options to reset and init the database with some examples
+  ./start --reset --init
   ```
 * You can now navigate through our chat application at [http://localhost:3000](http://localhost:3000)
 * Connect using your github account or your email address
 * Enjoy !
 
 ## Authors
+* Jean de Malliard, 4th year student in IS at ECE Paris <br>
+jean.de-malliard@edu.ece.fr<br>
+Student at [ECE Paris](https://www.ece.fr)
 
-* Jean de Malliard, 4th year student in IS at ECE Paris
-* Lucas Rietsch, 4th year student in IS at ECE Paris
+* Lucas Rietsch, 4th year student in IS at ECE Paris <br>
+lucas.rietsch@edu.ece.fr <br>
+Student at [ECE Paris](https://www.ece.fr)
 
 ## Tasks we have done
 
 Project management
 
 * Naming convention   
-  *place your comments*
+  *We did what we thought meaningful to name the variables*
 * Project structure   
   *place your comments*
 * Code quality   
-  *We really wanted to have a code as easy-to-read and to-understand as possible. We focused on the indentation, the naming convention and the clarity of ou code*
+  *We did our best to keep the code clear*
 * Design, UX   
   *We decided to keep a simple yet elegant design, based on a primary blue color and a secondary red color. We used a lot of [Material UI](https://material-ui.com/getting-started/installation/) Components in order to keep a friendly, elegant and functionnal application*
 * Git and DevOps   
-  *We used Git a lot, made several branches in order to work as efficiently as possible on the project. We had no troubles using git and it was very helpful to both of us for working togheter properly*
+  *We used Git a lot, made several branches in order to work as efficiently as possible on the project. We had no troubles using git and it was very helpful to both of us for working togheter properly. Branches were created for different functionnalities, and then merged with other branches when needed. Unit tests are working and were useful to keep an eye on the back-end state*
 
 Application development
 
@@ -85,26 +78,26 @@ Application development
   *Special mention for [Adaltas](https://www.adaltas.com) for their welcome page background image*
   *You will also see on the left side a [Drawer](https://material-ui.com/components/drawers/) which you will use to navigate through the app.*
 * New channel creation   
-  *place your comments*
+  *A button has been added under the channel list to create a new channel. By clicking it you can select a name and choose the members of the channel. You can cancel or choose to create the channel and it will instantly be visible. You can send messages on a newly created channel and everything is persistent*
 * Channel membership and access   
-  *place your comments*
+  *Every request contains the access token of the user, this token is checked on the back-end every time. If the user doesn't exist in the database (for example you connect using github) it is created and will persist.*
 * Ressource access control   
-  *place your comments*
+  *The channels are visible only to their members, the back-end sends back to the user only his channels.*
 * Invite users to channels   
-  *place your comments*
+  *At the channel creation it is possible to invite any member that has an account registered in the database.*
 * Message modification   
-  *place your comments*
+  *Unfortunately it is not possible to modify a message, we putted an icon to do it we didn't have enough time for this.*
 * Message removal   
-  *place your comments*
+  *It is possible to remove messages. You can only delete your own messages. After clicking the button you'll have to refresh the page or to go somewhere else and come back on the channel to see that the message has been removed. Unfortunately we didn't do better than this, we choosed to focus on other things.*
 * Account settings   
-  *At [http://localhost:3000/settings](http://localhost:3000/settings), you will have the possibility to change informations about your account, like your name, your e-mail adress, the theme of the application, your favorite channel. You will also have the possibility to contact us, to log out, or to know a little bit about us, the authors. We've used a lot of [Material UI](https://material-ui.com/getting-started/installation/) Components to make our app as friendly and as easy-to-use as possible. You will see a lot of home buttons so that you will be able to get back to the welcoming homepage without any trouble.*
+  *At [http://localhost:3000/settings](http://localhost:3000/settings), you will have the possibility to change informations about your account, like your name, your e-mail adress, the theme of the application, your favorite channel. Those changes will persist in the database. By the way they are simply here to show their persistence, you can't change the email or username associated with your account. You will also have the possibility to contact us, to log out, or to know a little bit about us, the authors. We've used a lot of [Material UI](https://material-ui.com/getting-started/installation/) Components to make our app as friendly and as easy-to-use as possible. You will see home buttons so that you will be able to get back to the welcoming homepage without any trouble.*
 * Gravatar integration   
-  *place your comments*
+  *We used a module called 'react-gravatar' to add some gravatars, it was pretty easy.*
 * Avatar selection   
-  *place your comments*
+  *We didn't do this task because we lacked of time*
 * Personal custom avatar   
-  *place your comments*
+  *Same, not enough time, even though this task doesn't seem complicated.*
 
 ## Bonus we have done
 
-*place your comments*
+*The start script was not asked, and we didn't do it to have bonus points, but I find it very useful and I'm not sure that a lot of groups did something like this.*
