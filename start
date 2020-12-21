@@ -2,7 +2,7 @@
 
 if [[ ! -d ./logs ]]
 then
-	echo 'creating logs directory'
+	printf 'creating logs directory'
 	mkdir logs
 fi
 
@@ -19,14 +19,23 @@ do
 		--back-test) backTests=1;;
 		-h) printHelp=1;;
 		--help) printHelp=1;;
-		*) echo "$1 is not an option";;
+		*) printf "$1 is not an option";;
 	esac
 	shift
 done
 
 if [ $printHelp -eq 1 ]
 then
-	echo "Usage : ./start [--init][--reset][--back-test][--help]"
+	printf "Usage : ./start [--init][--reset][--back-test][--help]\n\n"
+	printf "Options:\n"
+	printf "  --init \t\tUsed to init the database and fill it with some examples\n"
+	printf "  --reset \t\tUsed to reset the database\n"
+	printf "  --back-test \t\tUsed to launch the back-end tests\n"
+	printf "  -h\n"
+	printf "  --help \t\tUsed to print this help\n\n"
+	printf "Notes\n"
+	printf "  --init and --reset can be used together, the order isn't important as it will be treated as reset then init\n"
+	printf "  Using --back-test with other options will not consider other options (except -h)\n"
 	exit 0
 fi
 
@@ -60,4 +69,4 @@ fi
 #ps -ef | grep back-end/bin/start | grep -v grep | awk '{print $2}' | xargs kill
 ps -ef | grep dex | grep -v grep | awk '{print $2}' | xargs kill
 
-echo "Start script done"
+printf "Start script done"
